@@ -57,7 +57,7 @@ const EncoderSelection = () => {
   };
 
   return (
-    <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-200">
+    <div className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-200">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <EncoderImageGallery images={encoderImages} />

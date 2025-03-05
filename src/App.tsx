@@ -2,11 +2,12 @@
 import { ThemeProvider } from "./context/ThemeContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, useLocation } from "react-router-dom";
 import Pricing from "./pages/Pricing";
 import EncoderSelection from "./pages/EncoderSelection";
 import Accessories from "./pages/Accessories";
 import { TopNav } from "./components/navigation/TopNav";
+import { PurchaseStepsNav } from "./components/navigation/PurchaseStepsNav";
 import { Toaster } from "./components/ui/toaster";
 import { Toaster as Sonner } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
@@ -15,6 +16,17 @@ import FooterSection from "./components/sections/FooterSection";
 
 // Create a client for React Query
 const queryClient = new QueryClient();
+
+// Navigation controller component
+const NavigationController = () => {
+  const location = useLocation();
+  const path = location.pathname;
+  
+  // Check if the current path is part of the purchase flow
+  const isPurchaseFlow = ['/pricing', '/encoder-selection', '/accessories', '/checkout'].includes(path);
+  
+  return isPurchaseFlow ? <PurchaseStepsNav /> : <TopNav />;
+};
 
 function App() {
   return (
@@ -25,7 +37,9 @@ function App() {
           <Sonner />
           <BrowserRouter>
             <div className="min-h-screen w-full bg-white dark:bg-black transition-colors duration-200">
-              <TopNav />
+              <Routes>
+                <Route path="*" element={<NavigationController />} />
+              </Routes>
               <div>
                 <Routes>
                   <Route path="/" element={<Index />} />
