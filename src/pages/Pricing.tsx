@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import PricingCard from "@/components/pricing/PricingCard";
 import PlanSelector from "@/components/pricing/PlanSelector";
@@ -90,7 +89,7 @@ const Pricing = () => {
   return (
     <div className="pt-16 pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-200">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <h1 className="text-4xl font-bold tracking-tight mb-4 text-white dark:text-white">
             Simple, transparent pricing
           </h1>
@@ -102,14 +101,6 @@ const Pricing = () => {
             selectedPlan={selectedTab} 
             onPlanChange={setSelectedTab} 
           />
-
-          {selectedTab === "team" && (
-            <div className="max-w-xl mx-auto mb-8">
-              <h2 className="text-lg font-medium text-gray-900 dark:text-white transition-colors duration-200">
-                Select your software plan
-              </h2>
-            </div>
-          )}
         </div>
 
         <PlanDisplay 
