@@ -1,4 +1,3 @@
-
 import { ThemeProvider } from "./context/ThemeContext";
 import { CartProvider } from "./context/CartContext";
 import Index from "./pages/Index";
@@ -15,7 +14,7 @@ import { Toaster as Sonner } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FooterSection from "./components/sections/FooterSection";
-import { purchaseFlowPaths } from "./lib/utils";
+import { purchaseFlowPaths, getCartSidebarState } from "./lib/utils";
 import { useState, useEffect } from "react";
 
 // Create a client for React Query
@@ -42,10 +41,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   // Check if cart sidebar is open
   useEffect(() => {
     const handleStorageChange = () => {
-      const cartSidebarState = localStorage.getItem('cart-sidebar-state');
-      if (cartSidebarState) {
-        setCartOpen(JSON.parse(cartSidebarState));
-      }
+      setCartOpen(getCartSidebarState());
     };
     
     window.addEventListener('storage', handleStorageChange);
