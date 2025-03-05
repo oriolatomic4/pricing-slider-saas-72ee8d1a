@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import * as React from "react";
 import { ToggleTheme } from "./ToggleTheme";
@@ -6,7 +5,6 @@ import { useTheme } from "@/context/ThemeContext";
 import { cn } from "@/lib/utils";
 import {
   Phone,
-  Store,
   MenuIcon,
   X,
 } from "lucide-react";
@@ -81,9 +79,11 @@ export function TopNav() {
                   <Phone className="w-5 h-5 mr-2" />
                   Talk to sales
                 </Button>
-                <Button className="bg-vitruve-cyan text-black hover:bg-vitruve-cyan/90">
-                  <Store className="w-5 h-5 mr-2" />
-                  Store
+                <Button 
+                  className="bg-vitruve-cyan text-black hover:bg-vitruve-cyan/90"
+                  onClick={() => window.location.href = '/pricing'}
+                >
+                  Get Started Free
                 </Button>
                 <ToggleTheme />
               </div>
@@ -145,9 +145,11 @@ export function TopNav() {
                 <Phone className="w-5 h-5 mr-3" />
                 Talk to sales
               </Button>
-              <Button className="w-full justify-start bg-vitruve-cyan text-black hover:bg-vitruve-cyan/90">
-                <Store className="w-5 h-5 mr-3" />
-                Store
+              <Button 
+                className="w-full justify-start bg-vitruve-cyan text-black hover:bg-vitruve-cyan/90"
+                onClick={() => window.location.href = '/pricing'}
+              >
+                Get Started Free
               </Button>
             </div>
           </div>
