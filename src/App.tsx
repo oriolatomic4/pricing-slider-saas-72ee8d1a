@@ -13,6 +13,7 @@ import { Toaster as Sonner } from "./components/ui/sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FooterSection from "./components/sections/FooterSection";
+import { purchaseFlowPaths } from "./lib/utils";
 
 // Create a client for React Query
 const queryClient = new QueryClient();
@@ -23,7 +24,7 @@ const NavigationController = () => {
   const path = location.pathname;
   
   // Check if the current path is part of the purchase flow
-  const isPurchaseFlow = ['/pricing', '/encoder-selection', '/accessories', '/checkout'].includes(path);
+  const isPurchaseFlow = purchaseFlowPaths.includes(path);
   
   return isPurchaseFlow ? <PurchaseStepsNav /> : <TopNav />;
 };
@@ -46,9 +47,6 @@ function App() {
                   <Route path="/pricing" element={<Pricing />} />
                   <Route path="/encoder-selection" element={<EncoderSelection />} />
                   <Route path="/accessories" element={<Accessories />} />
-                  <Route path="/checkout" element={<div className="pt-24 px-4 sm:px-6 lg:px-8 min-h-[60vh] flex items-center justify-center">
-                    <h1 className="text-3xl font-bold">Checkout Page Coming Soon</h1>
-                  </div>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </div>

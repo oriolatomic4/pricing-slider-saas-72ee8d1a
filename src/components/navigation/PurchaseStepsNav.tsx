@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -11,12 +10,11 @@ interface PurchaseStep {
   path: string;
 }
 
-// Define the purchase flow steps
+// Define the purchase flow steps (reduced to 3 steps)
 const purchaseSteps: PurchaseStep[] = [
   { number: 1, label: "Select Plan", path: "/pricing" },
   { number: 2, label: "Add Encoders", path: "/encoder-selection" },
-  { number: 3, label: "Add Accessories", path: "/accessories" },
-  { number: 4, label: "Checkout", path: "/checkout" }
+  { number: 3, label: "Add Accessories", path: "/accessories" }
 ];
 
 export function PurchaseStepsNav() {
@@ -33,33 +31,45 @@ export function PurchaseStepsNav() {
 
   return (
     <nav className="w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-black transition-colors duration-200 py-4">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="flex justify-center">
-          <ol className="flex items-center w-full max-w-3xl">
+      <div className="max-w-7xl mx-auto px-4 flex items-center">
+        {/* Logo - keep it in the same place as TopNav */}
+        <div className="mr-auto">
+          <a href="/" className="flex-shrink-0">
+            <img 
+              src="/lovable-uploads/27b3d0c5-8329-4e05-b241-0097233e82ea.png" 
+              alt="Vitruve Logo" 
+              className="h-12"
+            />
+          </a>
+        </div>
+        
+        {/* Steps navigation - centered in the remaining space */}
+        <div className="flex justify-center flex-1">
+          <ol className="flex items-center w-full max-w-xl">
             {purchaseSteps.map((step, index) => {
               // Determine the status of this step
               const isCompleted = index < currentStepIndex;
               const isCurrent = index === currentStepIndex;
-              const isPending = index > currentStepIndex;
               
               return (
-                <li key={step.path} className="relative flex items-center">
-                  {/* Step connector (not for the first step) */}
+                <li key={step.path} className="relative flex-1 flex items-center justify-center">
+                  {/* Step connector line before (not for the first step) */}
                   {index !== 0 && (
                     <div 
                       className={cn(
-                        "absolute left-0 -translate-x-1/2 top-1/2 -translate-y-1/2 h-[2px] w-12",
+                        "absolute left-0 w-full h-[2px] -translate-y-0 max-w-[calc(50%-20px)]",
                         isCompleted ? "bg-vitruve-purple" : "bg-gray-300 dark:bg-gray-700"
                       )}
+                      style={{ right: '50%' }}
                     ></div>
                   )}
                   
-                  {/* Step node and label */}
-                  <div className="flex flex-col items-center">
+                  {/* Circle with number or check */}
+                  <div className="flex flex-col items-center z-10">
                     <Link
                       to={isCompleted ? step.path : "#"}
                       className={cn(
-                        "flex items-center justify-center rounded-full w-10 h-10 text-sm relative z-10",
+                        "flex items-center justify-center rounded-full w-10 h-10 text-sm",
                         isCompleted ? 
                           "bg-vitruve-purple text-white" : 
                           isCurrent ? 
@@ -88,19 +98,25 @@ export function PurchaseStepsNav() {
                     </span>
                   </div>
                   
-                  {/* The last step doesn't need a line after it */}
+                  {/* Step connector line after (not for the last step) */}
                   {index !== purchaseSteps.length - 1 && (
                     <div 
                       className={cn(
-                        "h-[2px] w-12",
+                        "absolute right-0 w-full h-[2px] -translate-y-0 max-w-[calc(50%-20px)]",
                         index < currentStepIndex ? "bg-vitruve-purple" : "bg-gray-300 dark:bg-gray-700"
                       )}
+                      style={{ left: '50%' }}
                     ></div>
                   )}
                 </li>
               );
             })}
           </ol>
+        </div>
+        
+        {/* Empty div to balance the layout */}
+        <div className="ml-auto invisible">
+          <div className="h-12 w-12"></div>
         </div>
       </div>
     </nav>
