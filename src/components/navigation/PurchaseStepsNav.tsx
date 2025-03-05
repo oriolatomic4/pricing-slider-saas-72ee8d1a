@@ -1,21 +1,18 @@
-
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { CheckCircle, Globe } from "lucide-react";
+import { CheckCircle, ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
 import { ToggleTheme } from "./ToggleTheme";
 import { setCartSidebarState } from "@/lib/utils";
 
-// Define the step structure
 interface PurchaseStep {
   number: number;
   label: string;
   path: string;
 }
 
-// Define the purchase flow steps (reduced to 3 steps)
 const purchaseSteps: PurchaseStep[] = [
   { number: 1, label: "Select Plan", path: "/pricing" },
   { number: 2, label: "Add Encoders", path: "/encoder-selection" },
@@ -28,10 +25,9 @@ export function PurchaseStepsNav() {
   const { getCartItemCount } = useCart();
   const itemCount = getCartItemCount();
   
-  // Determine the current step based on the path
   const getCurrentStepIndex = () => {
     const index = purchaseSteps.findIndex(step => step.path === currentPath);
-    return index >= 0 ? index : 0; // Default to first step if not found
+    return index >= 0 ? index : 0;
   };
   
   const currentStepIndex = getCurrentStepIndex();
@@ -43,7 +39,6 @@ export function PurchaseStepsNav() {
   return (
     <nav className="w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-black transition-colors duration-200 py-4">
       <div className="max-w-7xl mx-auto px-4 flex items-center">
-        {/* Logo - keep it in the same place as TopNav */}
         <div className="mr-auto">
           <a href="/" className="flex-shrink-0">
             <img 
@@ -54,18 +49,15 @@ export function PurchaseStepsNav() {
           </a>
         </div>
         
-        {/* Steps navigation - centered in the remaining space */}
         <div className="flex justify-center flex-1">
           <ol className="flex items-center w-full max-w-xl">
             {purchaseSteps.map((step, index) => {
-              // Determine the status of this step
               const isCompleted = index < currentStepIndex;
               const isCurrent = index === currentStepIndex;
               
               return (
                 <li key={step.path} className="relative flex-1 flex flex-col items-center">
                   <div className="flex items-center">
-                    {/* Connector line before current step (not for the first step) */}
                     {index !== 0 && (
                       <div 
                         className={cn(
@@ -75,7 +67,6 @@ export function PurchaseStepsNav() {
                       />
                     )}
                     
-                    {/* Circle with number or check */}
                     <Link
                       to={isCompleted ? step.path : "#"}
                       className={cn(
@@ -95,7 +86,6 @@ export function PurchaseStepsNav() {
                     </Link>
                   </div>
                   
-                  {/* Step label */}
                   <span 
                     className={cn(
                       "mt-2 text-xs font-medium whitespace-nowrap px-3 py-1 rounded-full",
@@ -114,7 +104,6 @@ export function PurchaseStepsNav() {
           </ol>
         </div>
         
-        {/* Cart and theme toggle */}
         <div className="ml-auto flex items-center space-x-2">
           <Button
             variant="ghost"
@@ -122,7 +111,7 @@ export function PurchaseStepsNav() {
             onClick={handleOpenCart}
             aria-label="Open Cart"
           >
-            <Globe className="h-5 w-5" />
+            <ShoppingCart className="h-5 w-5" />
             {itemCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-vitruve-purple text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 {itemCount}
