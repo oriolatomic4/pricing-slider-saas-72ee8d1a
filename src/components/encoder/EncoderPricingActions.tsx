@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { SoftwarePlan } from "./SoftwarePlanSelector";
+import { useCart } from "@/context/CartContext";
 
 interface EncoderPricingActionsProps {
   encoderCount: number | string;
@@ -15,7 +16,21 @@ const EncoderPricingActions = ({
   basePrice,
   selectedPlan 
 }: EncoderPricingActionsProps) => {
+  const { setSelectedPlan, setEncoderPurchase } = useCart();
   const isCustomQuote = encoderCount === "+6";
+
+  const handleContinue = () => {
+    // Save selected plan to cart
+    setSelectedPlan(selectedPlan);
+    
+    // Save encoder purchase info to cart if not a custom quote
+    if (!isCustomQuote) {
+      setEncoderPurchase({
+        count: Number(encoderCount),
+        pricePerUnit: basePrice
+      });
+    }
+  };
 
   return (
     <div className="space-y-5">
@@ -43,6 +58,7 @@ const EncoderPricingActions = ({
           </Button>
           <Button 
             className="flex-1 bg-vitruve-purple hover:bg-vitruve-purple/90 text-white py-6"
+            onClick={handleContinue}
             asChild
           >
             <Link to="/accessories">Continue</Link>

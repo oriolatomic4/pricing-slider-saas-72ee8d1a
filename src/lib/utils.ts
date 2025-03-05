@@ -10,7 +10,8 @@ export function cn(...inputs: ClassValue[]) {
 export const purchaseFlowPaths = [
   "/pricing",
   "/encoder-selection", 
-  "/accessories"
+  "/accessories",
+  "/checkout"
 ];
 
 // Get the next step in the purchase flow
