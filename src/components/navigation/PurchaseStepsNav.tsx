@@ -52,24 +52,23 @@ export function PurchaseStepsNav() {
               const isCurrent = index === currentStepIndex;
               
               return (
-                <li key={step.path} className="relative flex-1 flex items-center justify-center">
-                  {/* Step connector line before (not for the first step) */}
-                  {index !== 0 && (
-                    <div 
-                      className={cn(
-                        "absolute left-0 w-full h-[2px] -translate-y-0 max-w-[calc(50%-20px)]",
-                        isCompleted ? "bg-vitruve-purple" : "bg-gray-300 dark:bg-gray-700"
-                      )}
-                      style={{ right: '50%' }}
-                    ></div>
-                  )}
-                  
-                  {/* Circle with number or check */}
-                  <div className="flex flex-col items-center z-10">
+                <li key={step.path} className="relative flex-1 flex flex-col items-center">
+                  <div className="flex items-center">
+                    {/* Connector line before current step (not for the first step) */}
+                    {index !== 0 && (
+                      <div 
+                        className={cn(
+                          "absolute h-[2px] w-full -left-1/2 top-5 -translate-y-1/2",
+                          isCompleted ? "bg-vitruve-purple" : "bg-gray-300 dark:bg-gray-700"
+                        )}
+                      />
+                    )}
+                    
+                    {/* Circle with number or check */}
                     <Link
                       to={isCompleted ? step.path : "#"}
                       className={cn(
-                        "flex items-center justify-center rounded-full w-10 h-10 text-sm",
+                        "z-10 flex items-center justify-center rounded-full w-10 h-10 text-sm",
                         isCompleted ? 
                           "bg-vitruve-purple text-white" : 
                           isCurrent ? 
@@ -83,31 +82,21 @@ export function PurchaseStepsNav() {
                         <span className="font-medium">{step.number}</span>
                       )}
                     </Link>
-                    
-                    <span 
-                      className={cn(
-                        "mt-2 text-xs font-medium whitespace-nowrap px-3 py-1 rounded-full",
-                        isCurrent ? 
-                          "bg-vitruve-purple/10 text-vitruve-purple" : 
-                          isCompleted ? 
-                            "text-vitruve-purple" : 
-                            "text-gray-500 dark:text-gray-400"
-                      )}
-                    >
-                      {step.label}
-                    </span>
                   </div>
                   
-                  {/* Step connector line after (not for the last step) */}
-                  {index !== purchaseSteps.length - 1 && (
-                    <div 
-                      className={cn(
-                        "absolute right-0 w-full h-[2px] -translate-y-0 max-w-[calc(50%-20px)]",
-                        index < currentStepIndex ? "bg-vitruve-purple" : "bg-gray-300 dark:bg-gray-700"
-                      )}
-                      style={{ left: '50%' }}
-                    ></div>
-                  )}
+                  {/* Step label */}
+                  <span 
+                    className={cn(
+                      "mt-2 text-xs font-medium whitespace-nowrap px-3 py-1 rounded-full",
+                      isCurrent ? 
+                        "bg-vitruve-purple/10 text-vitruve-purple" : 
+                        isCompleted ? 
+                          "text-vitruve-purple" : 
+                          "text-gray-500 dark:text-gray-400"
+                    )}
+                  >
+                    {step.label}
+                  </span>
                 </li>
               );
             })}
