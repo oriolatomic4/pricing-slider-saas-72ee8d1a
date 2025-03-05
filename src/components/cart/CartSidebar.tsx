@@ -54,7 +54,7 @@ export function CartSidebar() {
       {/* Overlay backdrop when cart is open */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 dark:bg-black/70 z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/60 z-40 transition-opacity duration-300"
           onClick={handleClose}
         />
       )}
@@ -66,13 +66,13 @@ export function CartSidebar() {
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
-        <div className="h-full bg-black dark:bg-black flex flex-col">
+        <div className="h-full bg-gray-950 flex flex-col shadow-xl">
           <div className="relative h-full flex flex-col overflow-hidden">
             {/* Close button */}
             <Button
               variant="ghost"
               size="icon"
-              className="absolute top-4 right-4 z-10 text-gray-300 hover:text-white"
+              className="absolute top-4 right-4 z-10 text-gray-400 hover:text-white"
               onClick={handleClose}
             >
               <X className="h-5 w-5" />

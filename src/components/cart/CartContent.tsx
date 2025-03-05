@@ -32,13 +32,13 @@ export const CartContent = ({ selectedPlan, encoderPurchase, cart, products }: C
   const subtitle = selectedPlan ? "Includes Vitruve Lifetime Warranty" : "";
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-black dark:bg-black">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-gray-950">
       {/* Main product header when we have something in the cart */}
       {(selectedPlan || (encoderPurchase && encoderPurchase.count > 0)) && (
         <div className="mb-4">
-          <h3 className="text-lg font-bold mb-1 text-gray-200 dark:text-gray-200">{mainProduct}</h3>
-          {subtitle && <p className="text-sm text-gray-400 dark:text-gray-400">{subtitle}</p>}
-          <div className="h-px bg-gray-800 dark:bg-gray-800 w-full my-4"></div>
+          <h3 className="text-lg font-bold mb-1 text-gray-200">{mainProduct}</h3>
+          {subtitle && <p className="text-sm text-gray-400">{subtitle}</p>}
+          <div className="h-px bg-gray-800 w-full my-4"></div>
         </div>
       )}
       
@@ -93,8 +93,8 @@ export const CartContent = ({ selectedPlan, encoderPurchase, cart, products }: C
       
       {/* Empty state */}
       {!selectedPlan && !encoderPurchase && accessoryItems === 0 && (
-        <div className="text-center py-10 text-gray-500 dark:text-gray-400 flex flex-col items-center">
-          <Box className="w-12 h-12 mb-3 text-gray-600 dark:text-gray-600" />
+        <div className="text-center py-10 text-gray-500 flex flex-col items-center">
+          <Box className="w-12 h-12 mb-3 text-gray-700" />
           <p className="text-base">Your cart is empty</p>
         </div>
       )}
