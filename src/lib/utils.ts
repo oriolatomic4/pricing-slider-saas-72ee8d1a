@@ -39,3 +39,17 @@ export function getPreviousPurchaseStep(currentPath: string): string {
   // Return the previous path in the flow
   return purchaseFlowPaths[currentIndex - 1];
 }
+
+// Store cart sidebar state in localStorage
+export function setCartSidebarState(isOpen: boolean): void {
+  localStorage.setItem('cart-sidebar-state', JSON.stringify(isOpen));
+  
+  // Dispatch a storage event to trigger updates in other components
+  window.dispatchEvent(new Event('storage'));
+}
+
+// Get cart sidebar state from localStorage
+export function getCartSidebarState(): boolean {
+  const state = localStorage.getItem('cart-sidebar-state');
+  return state ? JSON.parse(state) : true; // Default to open
+}

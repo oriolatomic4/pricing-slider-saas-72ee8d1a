@@ -4,7 +4,7 @@ import { useLocation, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useCart, Product } from "@/context/CartContext";
 import { getNextPurchaseStep } from "@/lib/utils";
-import { X, ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
+import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { purchaseFlowPaths } from "@/lib/utils";
 
@@ -84,14 +84,14 @@ export function CartSidebar() {
   return (
     <div 
       className={cn(
-        "fixed top-20 right-0 h-[calc(100vh-5rem)] z-40 transition-all duration-300 ease-in-out",
+        "fixed inset-y-0 right-0 z-40 transition-all duration-300 ease-in-out h-screen pt-16",
         isOpen ? "translate-x-0" : "translate-x-full"
       )}
     >
       {/* Toggle button */}
       <button
         onClick={toggleSidebar}
-        className="absolute top-4 left-0 transform -translate-x-full bg-vitruve-purple text-white p-2 rounded-l-md"
+        className="absolute top-1/2 -translate-y-1/2 left-0 transform -translate-x-full bg-vitruve-purple text-white p-2 rounded-l-md"
         aria-label={isOpen ? "Close cart" : "Open cart"}
       >
         {isOpen ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
@@ -100,17 +100,11 @@ export function CartSidebar() {
       {/* Cart sidebar */}
       <div className="w-80 sm:w-96 h-full bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 flex flex-col">
         {/* Header */}
-        <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-bold flex items-center">
             <ShoppingCart className="mr-2 h-5 w-5" />
             YOUR CART
           </h2>
-          <button 
-            onClick={() => setIsOpen(false)}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-          >
-            <X size={24} />
-          </button>
         </div>
         
         {/* Content */}
@@ -198,4 +192,4 @@ export function CartSidebar() {
       </div>
     </div>
   );
-}
+};

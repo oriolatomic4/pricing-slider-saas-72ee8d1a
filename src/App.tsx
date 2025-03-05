@@ -16,6 +16,7 @@ import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FooterSection from "./components/sections/FooterSection";
 import { purchaseFlowPaths } from "./lib/utils";
+import { useState, useEffect } from "react";
 
 // Create a client for React Query
 const queryClient = new QueryClient();
@@ -29,6 +30,40 @@ const NavigationController = () => {
   const isPurchaseFlow = purchaseFlowPaths.includes(path);
   
   return isPurchaseFlow ? <PurchaseStepsNav /> : <TopNav />;
+};
+
+// Layout component for cart sidebar
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  const path = location.pathname;
+  const shouldShowCart = purchaseFlowPaths.includes(path) && path !== '/pricing';
+  const [cartOpen, setCartOpen] = useState(true);
+  
+  // Check if cart sidebar is open
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const cartSidebarState = localStorage.getItem('cart-sidebar-state');
+      if (cartSidebarState) {
+        setCartOpen(JSON.parse(cartSidebarState));
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    handleStorageChange(); // Check initial state
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+  
+  return (
+    <div className="min-h-screen w-full bg-white dark:bg-black transition-colors duration-200">
+      <div className={shouldShowCart && cartOpen ? "pr-96" : ""}>
+        {children}
+      </div>
+      <CartSidebar />
+    </div>
+  );
 };
 
 // Global type for product data access
@@ -47,11 +82,10 @@ function App() {
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <div className="min-h-screen w-full bg-white dark:bg-black transition-colors duration-200">
+              <MainLayout>
                 <Routes>
                   <Route path="*" element={<NavigationController />} />
                 </Routes>
-                <CartSidebar />
                 <div>
                   <Routes>
                     <Route path="/" element={<Index />} />
@@ -62,7 +96,7 @@ function App() {
                   </Routes>
                 </div>
                 <FooterSection />
-              </div>
+              </MainLayout>
             </BrowserRouter>
           </TooltipProvider>
         </CartProvider>
