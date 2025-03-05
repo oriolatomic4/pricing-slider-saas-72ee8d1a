@@ -11,11 +11,17 @@ import {
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { CartButton } from "@/components/cart/CartButton";
+import { useLocation } from "react-router-dom";
+import { purchaseFlowPaths } from "@/lib/utils";
 
 export function TopNav() {
   const { theme } = useTheme();
   const isMobile = useIsMobile();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const location = useLocation();
+  
+  // Check if current path is in the purchase flow
+  const isPurchasePage = purchaseFlowPaths.includes(location.pathname);
 
   const NavLink = ({
     href,
@@ -87,7 +93,7 @@ export function TopNav() {
                 >
                   Get Started Free
                 </Button>
-                <CartButton />
+                {isPurchasePage && <CartButton />}
                 <ToggleTheme />
               </div>
             </div>
@@ -95,7 +101,7 @@ export function TopNav() {
 
           {isMobile && (
             <div className="flex items-center">
-              <CartButton />
+              {isPurchasePage && <CartButton />}
               <ToggleTheme />
               <Button
                 variant="ghost"
