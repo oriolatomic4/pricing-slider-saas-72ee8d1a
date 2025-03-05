@@ -1,7 +1,12 @@
+
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Globe } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import { Button } from "@/components/ui/button";
+import { ToggleTheme } from "./ToggleTheme";
+import { setCartSidebarState } from "@/lib/utils";
 
 // Define the step structure
 interface PurchaseStep {
@@ -20,6 +25,8 @@ const purchaseSteps: PurchaseStep[] = [
 export function PurchaseStepsNav() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { getCartItemCount } = useCart();
+  const itemCount = getCartItemCount();
   
   // Determine the current step based on the path
   const getCurrentStepIndex = () => {
@@ -28,6 +35,10 @@ export function PurchaseStepsNav() {
   };
   
   const currentStepIndex = getCurrentStepIndex();
+  
+  const handleOpenCart = () => {
+    setCartSidebarState(true);
+  };
 
   return (
     <nav className="w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-black transition-colors duration-200 py-4">
@@ -103,9 +114,22 @@ export function PurchaseStepsNav() {
           </ol>
         </div>
         
-        {/* Empty div to balance the layout */}
-        <div className="ml-auto invisible">
-          <div className="h-12 w-12"></div>
+        {/* Cart and theme toggle */}
+        <div className="ml-auto flex items-center space-x-2">
+          <Button
+            variant="ghost"
+            className="relative p-2"
+            onClick={handleOpenCart}
+            aria-label="Open Cart"
+          >
+            <Globe className="h-5 w-5" />
+            {itemCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-vitruve-purple text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {itemCount}
+              </span>
+            )}
+          </Button>
+          <ToggleTheme />
         </div>
       </div>
     </nav>
