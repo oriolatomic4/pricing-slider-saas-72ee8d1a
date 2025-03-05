@@ -54,7 +54,7 @@ export function CartSidebar() {
       {/* Overlay backdrop when cart is open */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/20 dark:bg-black/40 z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/50 dark:bg-black/70 z-40 transition-opacity duration-300"
           onClick={handleClose}
         />
       )}
@@ -62,32 +62,34 @@ export function CartSidebar() {
       {/* Cart sidebar */}
       <div 
         className={cn(
-          "fixed inset-y-0 right-0 z-50 transition-all duration-300 ease-in-out h-screen pt-16 shadow-xl",
+          "fixed inset-y-0 right-0 z-50 transition-all duration-300 ease-in-out h-full w-full sm:w-[400px] md:w-[450px]",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
-        <div className="w-80 sm:w-96 h-full bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 flex flex-col relative">
-          {/* Close button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-3 right-3 z-10"
-            onClick={handleClose}
-          >
-            <X className="h-5 w-5" />
-          </Button>
-          
-          <CartHeader />
-          <CartContent 
-            selectedPlan={selectedPlan}
-            encoderPurchase={encoderPurchase}
-            cart={cart}
-            products={products}
-          />
-          <CartFooter 
-            subtotal={getSubtotal()}
-            nextPath={nextPath}
-          />
+        <div className="h-full bg-gray-50 dark:bg-gray-900 flex flex-col">
+          <div className="relative h-full flex flex-col overflow-hidden">
+            {/* Close button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-4 right-4 z-10"
+              onClick={handleClose}
+            >
+              <X className="h-6 w-6" />
+            </Button>
+            
+            <CartHeader />
+            <CartContent 
+              selectedPlan={selectedPlan}
+              encoderPurchase={encoderPurchase}
+              cart={cart}
+              products={products}
+            />
+            <CartFooter 
+              subtotal={getSubtotal()}
+              nextPath={nextPath}
+            />
+          </div>
         </div>
       </div>
     </>
