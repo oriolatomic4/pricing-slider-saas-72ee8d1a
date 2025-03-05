@@ -59,10 +59,10 @@ export function CartSidebar() {
         />
       )}
       
-      {/* Cart sidebar */}
+      {/* Cart sidebar - reduced width by ~10% */}
       <div 
         className={cn(
-          "fixed inset-y-0 right-0 z-50 transition-all duration-300 ease-in-out h-full w-full sm:w-[400px] md:w-[450px]",
+          "fixed inset-y-0 right-0 z-50 transition-all duration-300 ease-in-out h-full w-full sm:w-[360px] md:w-[405px]",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
@@ -75,7 +75,7 @@ export function CartSidebar() {
               className="absolute top-4 right-4 z-10"
               onClick={handleClose}
             >
-              <X className="h-6 w-6" />
+              <X className="h-5 w-5" />
             </Button>
             
             <CartHeader />
