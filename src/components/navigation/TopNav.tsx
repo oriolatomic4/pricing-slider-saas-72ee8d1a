@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import * as React from "react";
 import { ToggleTheme } from "./ToggleTheme";
@@ -9,6 +10,7 @@ import {
   X,
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { CartButton } from "@/components/cart/CartButton";
 
 export function TopNav() {
   const { theme } = useTheme();
@@ -85,6 +87,7 @@ export function TopNav() {
                 >
                   Get Started Free
                 </Button>
+                <CartButton />
                 <ToggleTheme />
               </div>
             </div>
@@ -92,6 +95,7 @@ export function TopNav() {
 
           {isMobile && (
             <div className="flex items-center">
+              <CartButton />
               <ToggleTheme />
               <Button
                 variant="ghost"

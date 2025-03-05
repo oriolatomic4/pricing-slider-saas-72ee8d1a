@@ -3,15 +3,16 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useCart, Product } from "@/context/CartContext";
 import { getNextPurchaseStep, setCartSidebarState, getCartSidebarState } from "@/lib/utils";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { purchaseFlowPaths } from "@/lib/utils";
 import { CartHeader } from "./CartHeader";
 import { CartContent } from "./CartContent";
 import { CartFooter } from "./CartFooter";
+import { Button } from "@/components/ui/button";
 
 export function CartSidebar() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const { 
     cart, 
     selectedPlan, 
@@ -43,42 +44,52 @@ export function CartSidebar() {
 
   if (!shouldShow) return null;
 
-  const toggleSidebar = () => {
-    const newState = !isOpen;
-    setIsOpen(newState);
-    setCartSidebarState(newState);
+  const handleClose = () => {
+    setIsOpen(false);
+    setCartSidebarState(false);
   };
 
   return (
-    <div 
-      className={cn(
-        "fixed inset-y-0 right-0 z-40 transition-all duration-300 ease-in-out h-screen pt-16",
-        isOpen ? "translate-x-0" : "translate-x-full"
+    <>
+      {/* Overlay backdrop when cart is open */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/20 dark:bg-black/40 z-40 transition-opacity duration-300"
+          onClick={handleClose}
+        />
       )}
-    >
-      {/* Toggle button */}
-      <button
-        onClick={toggleSidebar}
-        className="absolute top-1/2 -translate-y-1/2 left-0 transform -translate-x-full bg-vitruve-purple text-white p-2 rounded-l-md"
-        aria-label={isOpen ? "Close cart" : "Open cart"}
-      >
-        {isOpen ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
-      </button>
       
       {/* Cart sidebar */}
-      <div className="w-80 sm:w-96 h-full bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 flex flex-col">
-        <CartHeader />
-        <CartContent 
-          selectedPlan={selectedPlan}
-          encoderPurchase={encoderPurchase}
-          cart={cart}
-          products={products}
-        />
-        <CartFooter 
-          subtotal={getSubtotal()}
-          nextPath={nextPath}
-        />
+      <div 
+        className={cn(
+          "fixed inset-y-0 right-0 z-50 transition-all duration-300 ease-in-out h-screen pt-16 shadow-xl",
+          isOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        <div className="w-80 sm:w-96 h-full bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 flex flex-col relative">
+          {/* Close button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute top-3 right-3 z-10"
+            onClick={handleClose}
+          >
+            <X className="h-5 w-5" />
+          </Button>
+          
+          <CartHeader />
+          <CartContent 
+            selectedPlan={selectedPlan}
+            encoderPurchase={encoderPurchase}
+            cart={cart}
+            products={products}
+          />
+          <CartFooter 
+            subtotal={getSubtotal()}
+            nextPath={nextPath}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
