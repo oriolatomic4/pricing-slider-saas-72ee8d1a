@@ -4,10 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ShoppingCart, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { setCartSidebarState } from "@/lib/utils";
 
 const CheckoutBar = () => {
   const { getCartItemCount } = useCart();
   const itemCount = getCartItemCount();
+  
+  const handleOpenCart = () => {
+    setCartSidebarState(true);
+  };
   
   return (
     <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 py-4 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-gray-700 shadow-lg z-10">
@@ -15,7 +20,8 @@ const CheckoutBar = () => {
         <div className="flex items-center">
           <Button 
             variant="outline"
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 relative"
+            onClick={handleOpenCart}
           >
             <ShoppingCart className="w-5 h-5" /> 
             <span>View Cart {itemCount > 0 && `(${itemCount})`}</span>

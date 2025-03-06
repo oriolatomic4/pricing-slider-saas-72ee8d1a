@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { toast } from "sonner";
 import { SoftwarePlan } from "@/components/encoder/SoftwarePlanSelector";
+import { setCartSidebarState } from "@/lib/utils";
 
 export interface Product {
   id: string;
@@ -128,17 +129,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getCartItemCount = () => {
-    return Object.values(cart).reduce((acc, count) => acc + count, 0);
+    // Count accessories
+    const accessoriesCount = Object.values(cart).reduce((acc, count) => acc + count, 0);
+    
+    // Count encoder (if any)
+    const encoderCount = encoderPurchase ? encoderPurchase.count : 0;
+    
+    // Count plan (if any)
+    const planCount = selectedPlan ? 1 : 0;
+    
+    // Total items count
+    return accessoriesCount + encoderCount + planCount;
   };
 
   const getSubtotal = () => {
     return getCartTotal();
-  };
-  
-  // Helper function to open cart sidebar
-  const setCartSidebarState = (isOpen: boolean) => {
-    localStorage.setItem('cart-sidebar-state', JSON.stringify(isOpen));
-    window.dispatchEvent(new Event('storage'));
   };
 
   return (
