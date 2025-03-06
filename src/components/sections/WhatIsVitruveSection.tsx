@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Phone, Store, ChevronRight } from "lucide-react";
 
@@ -24,14 +25,18 @@ const WhatIsVitruveSection = () => {
           <div className="flex justify-center space-x-4 mb-16">
             <Button
               variant="ghost"
-              className="border border-vitruve-cyan hover:border-vitruve-purple hover:bg-transparent hover:text-gray-900 dark:hover:text-white text-gray-900 dark:text-white transition-colors duration-200"
+              className="border border-transparent hover:border-vitruve-purple hover:bg-transparent hover:text-gray-900 dark:hover:text-white text-gray-900 dark:text-white transition-colors duration-200"
+              onClick={() => window.location.href = '/contact'}
             >
               <Phone className="w-5 h-5 mr-2" />
               Talk to sales
             </Button>
-            <Button className="bg-vitruve-cyan text-black hover:bg-vitruve-cyan/90">
+            <Button 
+              className="bg-vitruve-cyan text-black hover:bg-vitruve-cyan/90"
+              onClick={() => window.location.href = '/pricing'}
+            >
               <Store className="w-5 h-5 mr-2" />
-              Store
+              Get Started Free
             </Button>
           </div>
 
