@@ -37,11 +37,12 @@ export const CartContent = ({
   onRemovePlan,
   onRemoveEncoder
 }: CartContentProps) => {
-  const accessoryItems = Object.keys(cart).length;
+  // Check if there are any products in the cart with quantity > 0
+  const accessoryItems = Object.entries(cart).filter(([_, quantity]) => quantity > 0).length;
   
   const mainProduct = selectedPlan ? selectedPlan.name : encoderPurchase && encoderPurchase.count > 0 ? "Vitruve Encoder" : "";
   const subtitle = selectedPlan ? "Includes Vitruve Lifetime Warranty" : "";
-  const isEmpty = !selectedPlan && !encoderPurchase && accessoryItems === 0;
+  const isEmpty = !selectedPlan && (!encoderPurchase || encoderPurchase.count === 0) && accessoryItems === 0;
 
   return (
     <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-white dark:bg-gray-950">
@@ -89,23 +90,25 @@ export const CartContent = ({
       {/* Accessories */}
       {accessoryItems > 0 && (
         <div className="mb-4 space-y-3">
-          {Object.entries(cart).map(([productId, quantity]) => {
-            const product = products.find(p => p.id === productId);
-            if (!product) return null;
-            
-            return (
-              <CartItem 
-                key={productId}
-                name={product.name}
-                description={product.category}
-                price={product.price * quantity}
-                quantity={quantity}
-                image={product.image || getRandomImage()}
-                onRemove={() => onRemoveItem && onRemoveItem(productId)}
-                itemId={productId}
-              />
-            );
-          })}
+          {Object.entries(cart)
+            .filter(([_, quantity]) => quantity > 0)
+            .map(([productId, quantity]) => {
+              const product = products.find(p => p.id === productId);
+              if (!product) return null;
+              
+              return (
+                <CartItem 
+                  key={productId}
+                  name={product.name}
+                  description={product.category}
+                  price={product.price * quantity}
+                  quantity={quantity}
+                  image={product.image || getRandomImage()}
+                  onRemove={() => onRemoveItem && onRemoveItem(productId)}
+                  itemId={productId}
+                />
+              );
+            })}
         </div>
       )}
       

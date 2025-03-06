@@ -111,8 +111,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const getCartTotal = () => {
     // Calculate total from accessories
     const accessoriesTotal = Object.entries(cart).reduce((total, [productId, quantity]) => {
-      // Here you would look up the product price from your products data
-      // For now, we'll just use a placeholder approach
+      if (quantity <= 0) return total; // Skip items with 0 or negative quantity
       const product = window._products?.find(p => p.id === productId);
       return total + (product?.price || 0) * quantity;
     }, 0);
@@ -121,7 +120,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const planCost = selectedPlan?.price || 0;
 
     // Add encoder cost
-    const encoderCost = encoderPurchase 
+    const encoderCost = encoderPurchase && encoderPurchase.count > 0 
       ? encoderPurchase.count * encoderPurchase.pricePerUnit 
       : 0;
 
@@ -129,11 +128,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getCartItemCount = () => {
-    // Count accessories
-    const accessoriesCount = Object.values(cart).reduce((acc, count) => acc + count, 0);
+    // Count accessories with quantity > 0
+    const accessoriesCount = Object.entries(cart)
+      .filter(([_, quantity]) => quantity > 0)
+      .reduce((acc, [_, count]) => acc + count, 0);
     
     // Count encoder (if any)
-    const encoderCount = encoderPurchase ? encoderPurchase.count : 0;
+    const encoderCount = encoderPurchase && encoderPurchase.count > 0 ? encoderPurchase.count : 0;
     
     // Count plan (if any)
     const planCount = selectedPlan ? 1 : 0;
