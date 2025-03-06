@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import EncoderImageGallery from "@/components/encoder/EncoderImageGallery";
-import SoftwarePlanSelector, { SoftwarePlan } from "@/components/encoder/SoftwarePlanSelector";
 import EncoderCountSelector, { EncoderOption } from "@/components/encoder/EncoderCountSelector";
 import EncoderPricingActions from "@/components/encoder/EncoderPricingActions";
 
@@ -23,7 +22,7 @@ const encoderOptions: EncoderOption[] = [
   { value: "+6", label: "+6" },
 ];
 
-const softwarePlans: SoftwarePlan[] = [
+const softwarePlans = [
   { id: "free", name: "Free", price: 0 },
   { id: "basic", name: "Basic", price: 800 },
   { id: "elite", name: "Elite", price: 1200 },
@@ -46,10 +45,6 @@ const EncoderSelection = () => {
 
   const handleEncoderSelection = (value: number | string) => {
     setEncoderCount(value);
-  };
-
-  const handlePlanChange = (planId: string) => {
-    setSelectedPlan(planId);
   };
 
   const getSelectedPlan = () => {
@@ -84,12 +79,6 @@ const EncoderSelection = () => {
                 </a>
               </p>
             </div>
-
-            <SoftwarePlanSelector
-              plans={softwarePlans}
-              selectedPlan={selectedPlan}
-              onPlanChange={handlePlanChange}
-            />
             
             <div className="space-y-5">
               <EncoderCountSelector
