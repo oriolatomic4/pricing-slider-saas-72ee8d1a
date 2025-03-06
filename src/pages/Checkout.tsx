@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useCart } from "@/context/CartContext";
 import { CartContent } from "@/components/cart/CartContent";
@@ -42,14 +41,20 @@ const Checkout = () => {
   };
 
   const handlePlaceOrder = () => {
-    // Complete the purchase and clear the cart
-    completePurchase();
+    // In a real application, this would submit the order to a payment processor
+    // For demo purposes, we'll simulate a payment process with a random success/failure
+    const isSuccessful = Math.random() > 0.3; // 70% success rate for demo purposes
     
-    // In a real application, this would submit the order to a backend
-    alert("Thank you for your order! This is a demo, so no actual purchase has been made.");
-    
-    // Navigate to homepage after successful purchase
-    navigate("/");
+    if (isSuccessful) {
+      // Complete the purchase and clear the cart
+      completePurchase();
+      
+      // Navigate to success page
+      navigate("/payment-success");
+    } else {
+      // Navigate to failure page
+      navigate("/payment-failed");
+    }
   };
 
   return (

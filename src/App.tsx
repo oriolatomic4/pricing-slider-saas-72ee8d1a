@@ -1,3 +1,4 @@
+
 import { ThemeProvider } from "./context/ThemeContext";
 import { CartProvider } from "./context/CartContext";
 import Index from "./pages/Index";
@@ -7,6 +8,8 @@ import Pricing from "./pages/Pricing";
 import EncoderSelection from "./pages/EncoderSelection";
 import Accessories from "./pages/Accessories";
 import Checkout from "./pages/Checkout";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentFailed from "./pages/PaymentFailed";
 import { TopNav } from "./components/navigation/TopNav";
 import { PurchaseStepsNav } from "./components/navigation/PurchaseStepsNav";
 import { CartSidebar } from "./components/cart/CartSidebar";
@@ -24,6 +27,11 @@ const queryClient = new QueryClient();
 const NavigationController = () => {
   const location = useLocation();
   const path = location.pathname;
+  
+  // Don't show any navigation on payment success/failure pages
+  if (path === "/payment-success" || path === "/payment-failed") {
+    return null;
+  }
   
   // Check if the current path is part of the purchase flow
   const isPurchaseFlow = purchaseFlowPaths.includes(path);
@@ -68,6 +76,8 @@ function App() {
                     <Route path="/encoder-selection" element={<EncoderSelection />} />
                     <Route path="/accessories" element={<Accessories />} />
                     <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/payment-success" element={<PaymentSuccess />} />
+                    <Route path="/payment-failed" element={<PaymentFailed />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </div>
