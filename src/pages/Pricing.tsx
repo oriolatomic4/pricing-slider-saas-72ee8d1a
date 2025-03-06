@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import PricingCard from "@/components/pricing/PricingCard";
 import PlanSelector from "@/components/pricing/PlanSelector";
@@ -90,7 +91,7 @@ const Pricing = () => {
     <div className="pt-16 pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-200">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold tracking-tight mb-4 text-white dark:text-white">
+          <h1 className="text-4xl font-bold tracking-tight mb-4 text-black dark:text-white">
             Simple, transparent pricing
           </h1>
           <p className="text-lg text-gray-700 dark:text-white/70 mb-8 transition-colors duration-200">
