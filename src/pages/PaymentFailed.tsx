@@ -27,6 +27,7 @@ const PaymentFailed = () => {
           <div className="pt-6">
             <Button 
               className="px-8 py-6 text-lg bg-vitruve-purple hover:bg-vitruve-purple/90 text-white rounded-full"
+              asChild
             >
               <Link to="/checkout">Retry</Link>
             </Button>

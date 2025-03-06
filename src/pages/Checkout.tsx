@@ -1,9 +1,12 @@
+
 import React from "react";
 import { useCart } from "@/context/CartContext";
 import { CartContent } from "@/components/cart/CartContent";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -20,6 +23,7 @@ const Checkout = () => {
 
   // Products data
   const [products, setProducts] = React.useState<any[]>([]);
+  const [isProcessing, setIsProcessing] = React.useState(false);
   
   // Fetch products data
   React.useEffect(() => {
@@ -40,21 +44,49 @@ const Checkout = () => {
     setEncoderPurchase(null);
   };
 
-  const handlePlaceOrder = () => {
-    // In a real application, this would submit the order to a payment processor
-    // For demo purposes, we'll simulate a payment process with a random success/failure
-    const isSuccessful = Math.random() > 0.3; // 70% success rate for demo purposes
-    
-    if (isSuccessful) {
-      // Complete the purchase and clear the cart
-      completePurchase();
+  const handlePlaceOrder = async () => {
+    try {
+      setIsProcessing(true);
       
-      // Navigate to success page
-      navigate("/payment-success");
-    } else {
-      // Navigate to failure page
-      navigate("/payment-failed");
+      // Prepare the checkout items for Stripe
+      // For simplicity, we'll use the first item from cart as the price ID
+      // In a real app, you would map your product IDs to Stripe price IDs
+      const firstItemId = Object.keys(cart)[0] || 'default_price_id';
+      const quantity = getCartItemCount();
+      
+      const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+        body: {
+          priceId: firstItemId,
+          quantity: quantity
+        }
+      });
+      
+      if (error) {
+        console.error('Error creating checkout session:', error);
+        toast.error('Failed to initiate checkout. Please try again.');
+        navigate('/payment-failed');
+        return;
+      }
+      
+      // If successful, redirect to the Stripe checkout URL
+      if (data && data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error('No checkout URL returned');
+        toast.error('Failed to initiate checkout. Please try again.');
+        navigate('/payment-failed');
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      toast.error('An unexpected error occurred. Please try again.');
+      navigate('/payment-failed');
+    } finally {
+      setIsProcessing(false);
     }
+  };
+
+  const getCartItemCount = () => {
+    return Object.values(cart).reduce((total, quantity) => total + quantity, 0);
   };
 
   return (
@@ -104,16 +136,23 @@ const Checkout = () => {
               <Button 
                 onClick={handlePlaceOrder}
                 className="w-full bg-vitruve-purple hover:bg-vitruve-purple/90 text-white font-bold py-5 text-base rounded-full"
-                disabled={getSubtotal() <= 0}
+                disabled={getSubtotal() <= 0 || isProcessing}
               >
-                <Check className="mr-2 h-5 w-5" /> 
-                PLACE ORDER
+                {isProcessing ? (
+                  <>Processing...</>
+                ) : (
+                  <>
+                    <Check className="mr-2 h-5 w-5" />
+                    PLACE ORDER
+                  </>
+                )}
               </Button>
               
               <Button
                 variant="outline"
                 className="w-full py-4 border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200"
                 asChild
+                disabled={isProcessing}
               >
                 <Link to="/accessories">
                   <ArrowLeft className="mr-2 h-4 w-4" />
