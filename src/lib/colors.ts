@@ -36,10 +36,24 @@ export const colors = {
   },
   brand: {
     purple: "#5d53f5",
-    cyan: "#18fdc2",
+    cyan: "#18fdc2",  // tourqoise
     yellow: "#fee37a",
+    blue: "#3dc5ff",
     purpleLight: "#8a83f7",
     cyanLight: "#5ffed7",
     yellowLight: "#feecac",
+  },
+  gray: {
+    50: "#f9f9f9",
+    100: "#f2f2f2",
+    200: "#e6e6e6",
+    300: "#d9d9d9",
+    400: "#cccccc",
+    500: "#999999",
+    600: "#666666",
+    700: "#404042",
+    800: "#1f1f1f",
+    900: "#141416",
+    950: "#0a0a0a",
   }
 };
