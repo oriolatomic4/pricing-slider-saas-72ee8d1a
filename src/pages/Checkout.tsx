@@ -48,18 +48,58 @@ const Checkout = () => {
     try {
       setIsProcessing(true);
       
-      // Prepare the checkout items for Stripe
-      // For simplicity, we'll use the first item from cart as the price ID
-      // In a real app, you would map your product IDs to Stripe price IDs
-      const firstItemId = Object.keys(cart)[0] || 'default_price_id';
-      const quantity = getCartItemCount();
+      // Create line items from cart for Stripe
+      const lineItems = [];
+      
+      // Add cart items
+      for (const [productId, quantity] of Object.entries(cart)) {
+        if (quantity > 0) {
+          const product = products.find(p => p.id === productId);
+          if (product) {
+            lineItems.push({
+              priceId: productId, // Using product ID as price ID for demonstration
+              quantity: quantity,
+              name: product.name,
+              amount: product.price * 100 // Convert to cents for Stripe
+            });
+          }
+        }
+      }
+      
+      // Add plan if selected
+      if (selectedPlan) {
+        lineItems.push({
+          priceId: selectedPlan.id,
+          quantity: 1,
+          name: selectedPlan.name,
+          amount: selectedPlan.price * 100 // Convert to cents for Stripe
+        });
+      }
+      
+      // Add encoder if selected
+      if (encoderPurchase && encoderPurchase.count > 0) {
+        lineItems.push({
+          priceId: 'encoder-device',
+          quantity: encoderPurchase.count,
+          name: 'Vitruve Encoder Device',
+          amount: encoderPurchase.pricePerUnit * 100 // Convert to cents for Stripe
+        });
+      }
+      
+      // If cart is empty, show error
+      if (lineItems.length === 0) {
+        toast.error('Your cart is empty. Please add items before checkout.');
+        setIsProcessing(false);
+        return;
+      }
+      
+      console.log('Sending line items to checkout:', lineItems);
       
       const { data, error } = await supabase.functions.invoke('create-checkout-session', {
-        body: {
-          priceId: firstItemId,
-          quantity: quantity
-        }
+        body: { lineItems }
       });
+      
+      console.log('Response from checkout session:', data, error);
       
       if (error) {
         console.error('Error creating checkout session:', error);
