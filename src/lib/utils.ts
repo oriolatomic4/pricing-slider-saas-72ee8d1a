@@ -51,5 +51,5 @@ export function setCartSidebarState(isOpen: boolean): void {
 // Get cart sidebar state from localStorage
 export function getCartSidebarState(): boolean {
   const state = localStorage.getItem('cart-sidebar-state');
-  return state ? JSON.parse(state) : true; // Default to open
+  return state ? JSON.parse(state) : false; // Default to closed
 }

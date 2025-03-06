@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { SoftwarePlan } from "./SoftwarePlanSelector";
 import { useCart } from "@/context/CartContext";
+import { setCartSidebarState } from "@/lib/utils";
 
 interface EncoderPricingActionsProps {
   encoderCount: number | string;
@@ -30,6 +31,9 @@ const EncoderPricingActions = ({
         pricePerUnit: basePrice
       });
     }
+    
+    // Open the cart sidebar to show what was added
+    setCartSidebarState(true);
   };
 
   return (

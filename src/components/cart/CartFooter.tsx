@@ -2,13 +2,15 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { ShoppingBag } from "lucide-react";
 
 interface CartFooterProps {
   subtotal: number;
   nextPath: string;
+  onClose?: () => void;
 }
 
-export const CartFooter = ({ subtotal, nextPath }: CartFooterProps) => {
+export const CartFooter = ({ subtotal, nextPath, onClose }: CartFooterProps) => {
   return (
     <div className="p-5 border-t border-gray-800 bg-gray-900">
       <div className="space-y-2 mb-5">
@@ -26,14 +28,25 @@ export const CartFooter = ({ subtotal, nextPath }: CartFooterProps) => {
         </div>
       </div>
       
-      <Button 
-        className="w-full bg-vitruve-purple hover:bg-vitruve-purple/90 text-white font-bold py-5 text-base rounded-full"
-        asChild
-      >
-        <Link to={nextPath}>
-          CONTINUE
-        </Link>
-      </Button>
+      <div className="space-y-3">
+        <Button 
+          className="w-full bg-vitruve-purple hover:bg-vitruve-purple/90 text-white font-bold py-5 text-base rounded-full"
+          asChild
+        >
+          <Link to={nextPath} onClick={onClose}>
+            CONTINUE
+          </Link>
+        </Button>
+        
+        <Button
+          variant="outline"
+          className="w-full text-gray-300 py-4 border-gray-700"
+          onClick={onClose}
+        >
+          <ShoppingBag className="mr-2 h-4 w-4" />
+          Continue Shopping
+        </Button>
+      </div>
     </div>
   );
 };

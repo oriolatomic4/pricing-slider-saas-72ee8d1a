@@ -28,6 +28,7 @@ interface CartContextType {
   setSelectedPlan: (plan: SoftwarePlan | null) => void;
   setEncoderPurchase: (purchase: EncoderPurchase | null) => void;
   getSubtotal: () => number;
+  updateCartItemQuantity: (productId: string, quantity: number) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -56,8 +57,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     try {
       localStorage.setItem('vitruve-cart', JSON.stringify(cart));
-      if (selectedPlan) localStorage.setItem('vitruve-plan', JSON.stringify(selectedPlan));
-      if (encoderPurchase) localStorage.setItem('vitruve-encoder', JSON.stringify(encoderPurchase));
+      localStorage.setItem('vitruve-plan', JSON.stringify(selectedPlan));
+      localStorage.setItem('vitruve-encoder', JSON.stringify(encoderPurchase));
     } catch (e) {
       console.error('Error saving cart to localStorage', e);
     }
@@ -70,6 +71,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }));
     
     toast.success(`Added ${product.name} to cart`);
+    
+    // Auto open the cart when adding items
+    setCartSidebarState(true);
+  };
+  
+  const updateCartItemQuantity = (productId: string, quantity: number) => {
+    if (quantity <= 0) {
+      removeFromCart(productId);
+      return;
+    }
+    
+    setCart(prev => ({
+      ...prev,
+      [productId]: quantity
+    }));
   };
 
   const removeFromCart = (productId: string) => {
@@ -78,6 +94,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       delete newCart[productId];
       return newCart;
     });
+    
+    toast.success("Item removed from cart");
   };
 
   const clearCart = () => {
@@ -116,6 +134,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const getSubtotal = () => {
     return getCartTotal();
   };
+  
+  // Helper function to open cart sidebar
+  const setCartSidebarState = (isOpen: boolean) => {
+    localStorage.setItem('cart-sidebar-state', JSON.stringify(isOpen));
+    window.dispatchEvent(new Event('storage'));
+  };
 
   return (
     <CartContext.Provider value={{ 
@@ -129,7 +153,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       getCartItemCount,
       setSelectedPlan,
       setEncoderPurchase,
-      getSubtotal
+      getSubtotal,
+      updateCartItemQuantity
     }}>
       {children}
     </CartContext.Provider>

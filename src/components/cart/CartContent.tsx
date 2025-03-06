@@ -4,13 +4,16 @@ import { CartItem } from "./CartItem";
 import { Product } from "@/context/CartContext";
 import { SoftwarePlan } from "@/components/encoder/SoftwarePlanSelector";
 import { EncoderPurchase } from "@/context/CartContext";
-import { Package, Box, Layers } from "lucide-react";
+import { Package, Box } from "lucide-react";
 
 interface CartContentProps {
   selectedPlan: SoftwarePlan | null;
   encoderPurchase: EncoderPurchase | null;
   cart: { [key: string]: number };
   products: Product[];
+  onRemoveItem?: (productId: string) => void;
+  onRemovePlan?: () => void;
+  onRemoveEncoder?: () => void;
 }
 
 // Random images for products that don't have one
@@ -25,7 +28,15 @@ const getRandomImage = () => {
   return placeholderImages[Math.floor(Math.random() * placeholderImages.length)];
 };
 
-export const CartContent = ({ selectedPlan, encoderPurchase, cart, products }: CartContentProps) => {
+export const CartContent = ({
+  selectedPlan,
+  encoderPurchase,
+  cart,
+  products,
+  onRemoveItem,
+  onRemovePlan,
+  onRemoveEncoder
+}: CartContentProps) => {
   const accessoryItems = Object.keys(cart).length;
   
   const mainProduct = selectedPlan ? selectedPlan.name : encoderPurchase && encoderPurchase.count > 0 ? "Vitruve Encoder" : "";
@@ -51,8 +62,10 @@ export const CartContent = ({ selectedPlan, encoderPurchase, cart, products }: C
             price={selectedPlan.price}
             quantity={1}
             showQuantity={true}
-            allowQuantityChange={true}
+            allowQuantityChange={false}
             image="/lovable-uploads/a70c084d-024f-4131-b1a6-3d4ba0456f34.png"
+            onRemove={onRemovePlan}
+            itemId="plan"
           />
         </div>
       )}
@@ -63,9 +76,11 @@ export const CartContent = ({ selectedPlan, encoderPurchase, cart, products }: C
           <CartItem 
             name="Vitruve Encoder Device" 
             description="Onyx SuperKit Band"
-            price="Free"
+            price={encoderPurchase.pricePerUnit * encoderPurchase.count}
             quantity={encoderPurchase.count}
             image="/lovable-uploads/8965823e-f42e-472b-b3de-8c3cc25c57c0.png"
+            onRemove={onRemoveEncoder}
+            itemId="encoder"
           />
         </div>
       )}
@@ -85,6 +100,8 @@ export const CartContent = ({ selectedPlan, encoderPurchase, cart, products }: C
                 price={product.price * quantity}
                 quantity={quantity}
                 image={product.image || getRandomImage()}
+                onRemove={() => onRemoveItem && onRemoveItem(productId)}
+                itemId={productId}
               />
             );
           })}

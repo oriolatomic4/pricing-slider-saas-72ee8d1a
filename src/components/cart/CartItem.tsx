@@ -1,6 +1,7 @@
 
 import React from "react";
-import { ChevronDown, Package, Image } from "lucide-react";
+import { ChevronDown, Package, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface CartItemProps {
   name: string;
@@ -10,6 +11,8 @@ interface CartItemProps {
   image?: string;
   showQuantity?: boolean;
   allowQuantityChange?: boolean;
+  onRemove?: () => void;
+  itemId: string;
 }
 
 export const CartItem = ({ 
@@ -19,10 +22,24 @@ export const CartItem = ({
   quantity = 1, 
   image, 
   showQuantity = true,
-  allowQuantityChange = false
+  allowQuantityChange = false,
+  onRemove,
+  itemId
 }: CartItemProps) => {
   return (
-    <div className="py-3 mb-3 rounded-lg bg-gray-800 shadow-md border border-gray-700">
+    <div className="py-3 relative rounded-lg bg-gray-800 shadow-md border border-gray-700">
+      {onRemove && (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-1 right-1 h-6 w-6 text-gray-400 hover:text-white hover:bg-gray-700"
+          onClick={onRemove}
+          aria-label={`Remove ${name} from cart`}
+        >
+          <X className="h-3.5 w-3.5" />
+        </Button>
+      )}
+      
       <div className="flex items-start gap-3 px-4">
         <div className="w-16 h-16 rounded-md bg-gray-700 flex items-center justify-center overflow-hidden flex-shrink-0">
           {image ? (

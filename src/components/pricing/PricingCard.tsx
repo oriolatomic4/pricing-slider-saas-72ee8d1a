@@ -5,12 +5,23 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PricingTier } from "@/types/pricing";
+import { useCart } from "@/context/CartContext";
 
 interface PricingCardProps {
   tier: PricingTier;
 }
 
 const PricingCard = ({ tier }: PricingCardProps) => {
+  const { setSelectedPlan } = useCart();
+  
+  const handleSelectPlan = () => {
+    setSelectedPlan({
+      id: tier.id,
+      name: tier.name,
+      price: tier.price || 0
+    });
+  };
+  
   return (
     <div
       className={cn(
@@ -51,6 +62,7 @@ const PricingCard = ({ tier }: PricingCardProps) => {
             ? "bg-vitruve-purple text-white hover:bg-vitruve-purple/90"
             : "bg-vitruve-cyan text-black hover:bg-vitruve-cyan/90"
         )}
+        onClick={handleSelectPlan}
         asChild
       >
         <Link to={`/encoder-selection?plan=${tier.id}`}>Continue</Link>

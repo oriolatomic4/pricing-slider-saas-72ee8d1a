@@ -17,14 +17,17 @@ export function CartSidebar() {
     cart, 
     selectedPlan, 
     encoderPurchase, 
-    getSubtotal
+    getSubtotal,
+    removeFromCart,
+    setSelectedPlan,
+    setEncoderPurchase
   } = useCart();
   const location = useLocation();
   const path = location.pathname;
   const nextPath = getNextPurchaseStep(path);
   
-  // Don't show on pricing page or non-purchase flow pages
-  const shouldShow = purchaseFlowPaths.includes(path) && path !== '/pricing';
+  // Don't show on non-purchase flow pages
+  const shouldShow = purchaseFlowPaths.includes(path);
   
   // Products data
   const [products, setProducts] = useState<Product[]>([]);
@@ -36,17 +39,45 @@ export function CartSidebar() {
     }
   }, [cart]);
 
-  // Initialize isOpen state from localStorage
+  // Listen for cart sidebar state changes
   useEffect(() => {
-    const sidebarState = getCartSidebarState();
-    setIsOpen(sidebarState);
+    const handleStorageChange = () => {
+      const sidebarState = getCartSidebarState();
+      setIsOpen(sidebarState);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Initialize isOpen state from localStorage
+    handleStorageChange();
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
+
+  // Update localStorage whenever isOpen changes
+  useEffect(() => {
+    setCartSidebarState(isOpen);
+  }, [isOpen]);
 
   if (!shouldShow) return null;
 
   const handleClose = () => {
     setIsOpen(false);
     setCartSidebarState(false);
+  };
+
+  const handleRemoveItem = (productId: string) => {
+    removeFromCart(productId);
+  };
+
+  const handleRemovePlan = () => {
+    setSelectedPlan(null);
+  };
+
+  const handleRemoveEncoder = () => {
+    setEncoderPurchase(null);
   };
 
   return (
@@ -59,7 +90,7 @@ export function CartSidebar() {
         />
       )}
       
-      {/* Cart sidebar - reduced width by ~10% */}
+      {/* Cart sidebar */}
       <div 
         className={cn(
           "fixed inset-y-0 right-0 z-50 transition-all duration-300 ease-in-out h-full w-full sm:w-[360px] md:w-[405px]",
@@ -84,10 +115,14 @@ export function CartSidebar() {
               encoderPurchase={encoderPurchase}
               cart={cart}
               products={products}
+              onRemoveItem={handleRemoveItem}
+              onRemovePlan={handleRemovePlan}
+              onRemoveEncoder={handleRemoveEncoder}
             />
             <CartFooter 
               subtotal={getSubtotal()}
               nextPath={nextPath}
+              onClose={handleClose}
             />
           </div>
         </div>
