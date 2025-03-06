@@ -4,9 +4,10 @@ import { useCart } from "@/context/CartContext";
 import { CartContent } from "@/components/cart/CartContent";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Checkout = () => {
+  const navigate = useNavigate();
   const { 
     cart, 
     selectedPlan, 
@@ -14,7 +15,8 @@ const Checkout = () => {
     getSubtotal,
     removeFromCart,
     setSelectedPlan,
-    setEncoderPurchase
+    setEncoderPurchase,
+    completePurchase
   } = useCart();
 
   // Products data
@@ -40,8 +42,14 @@ const Checkout = () => {
   };
 
   const handlePlaceOrder = () => {
+    // Complete the purchase and clear the cart
+    completePurchase();
+    
     // In a real application, this would submit the order to a backend
     alert("Thank you for your order! This is a demo, so no actual purchase has been made.");
+    
+    // Navigate to homepage after successful purchase
+    navigate("/");
   };
 
   return (

@@ -30,7 +30,13 @@ interface CartContextType {
   setEncoderPurchase: (purchase: EncoderPurchase | null) => void;
   getSubtotal: () => number;
   updateCartItemQuantity: (productId: string, quantity: number) => void;
+  completePurchase: () => void;
 }
+
+// Local storage keys
+const CART_STORAGE_KEY = 'vitruve-cart';
+const PLAN_STORAGE_KEY = 'vitruve-plan';
+const ENCODER_STORAGE_KEY = 'vitruve-encoder';
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -42,9 +48,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   // Try to load cart from localStorage on initial render
   useEffect(() => {
     try {
-      const savedCart = localStorage.getItem('vitruve-cart');
-      const savedPlan = localStorage.getItem('vitruve-plan');
-      const savedEncoder = localStorage.getItem('vitruve-encoder');
+      const savedCart = localStorage.getItem(CART_STORAGE_KEY);
+      const savedPlan = localStorage.getItem(PLAN_STORAGE_KEY);
+      const savedEncoder = localStorage.getItem(ENCODER_STORAGE_KEY);
       
       if (savedCart) setCart(JSON.parse(savedCart));
       if (savedPlan) setSelectedPlan(JSON.parse(savedPlan));
@@ -57,9 +63,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   // Save cart to localStorage whenever it changes
   useEffect(() => {
     try {
-      localStorage.setItem('vitruve-cart', JSON.stringify(cart));
-      localStorage.setItem('vitruve-plan', JSON.stringify(selectedPlan));
-      localStorage.setItem('vitruve-encoder', JSON.stringify(encoderPurchase));
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+      localStorage.setItem(PLAN_STORAGE_KEY, JSON.stringify(selectedPlan));
+      localStorage.setItem(ENCODER_STORAGE_KEY, JSON.stringify(encoderPurchase));
     } catch (e) {
       console.error('Error saving cart to localStorage', e);
     }
@@ -99,13 +105,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     toast.success("Item removed from cart");
   };
 
+  // Only used when explicitly clearing the cart (not after purchase)
   const clearCart = () => {
     setCart({});
     setSelectedPlan(null);
     setEncoderPurchase(null);
-    localStorage.removeItem('vitruve-cart');
-    localStorage.removeItem('vitruve-plan');
-    localStorage.removeItem('vitruve-encoder');
+    localStorage.removeItem(CART_STORAGE_KEY);
+    localStorage.removeItem(PLAN_STORAGE_KEY);
+    localStorage.removeItem(ENCODER_STORAGE_KEY);
+  };
+
+  // Used after completing a purchase
+  const completePurchase = () => {
+    // Only clear the cart after successful purchase
+    setCart({});
+    setSelectedPlan(null);
+    setEncoderPurchase(null);
+    localStorage.removeItem(CART_STORAGE_KEY);
+    localStorage.removeItem(PLAN_STORAGE_KEY);
+    localStorage.removeItem(ENCODER_STORAGE_KEY);
+    
+    toast.success("Thank you for your purchase!");
   };
 
   const getCartTotal = () => {
@@ -167,7 +187,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       setSelectedPlan,
       setEncoderPurchase,
       getSubtotal,
-      updateCartItemQuantity
+      updateCartItemQuantity,
+      completePurchase
     }}>
       {children}
     </CartContext.Provider>
