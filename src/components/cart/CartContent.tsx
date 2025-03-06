@@ -44,13 +44,13 @@ export const CartContent = ({
   const isEmpty = !selectedPlan && !encoderPurchase && accessoryItems === 0;
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-gray-950 dark:bg-gray-950">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-gray-50 dark:bg-gray-950">
       {/* Main product header when we have something in the cart */}
       {(selectedPlan || (encoderPurchase && encoderPurchase.count > 0)) && (
         <div className="mb-4">
-          <h3 className="text-lg font-bold mb-1 text-gray-200">{mainProduct}</h3>
-          {subtitle && <p className="text-sm text-gray-400">{subtitle}</p>}
-          <div className="h-px bg-gray-800 w-full my-4"></div>
+          <h3 className="text-lg font-bold mb-1 text-gray-900 dark:text-gray-200">{mainProduct}</h3>
+          {subtitle && <p className="text-sm text-gray-600 dark:text-gray-400">{subtitle}</p>}
+          <div className="h-px bg-gray-200 dark:bg-gray-800 w-full my-4"></div>
         </div>
       )}
       
@@ -111,8 +111,8 @@ export const CartContent = ({
       
       {/* Empty state */}
       {isEmpty && (
-        <div className="text-center py-10 text-gray-500 flex flex-col items-center">
-          <Box className="w-12 h-12 mb-3 text-gray-700" />
+        <div className="text-center py-10 text-gray-500 dark:text-gray-500 flex flex-col items-center">
+          <Box className="w-12 h-12 mb-3 text-gray-400 dark:text-gray-700" />
           <p className="text-base">Your cart is empty</p>
         </div>
       )}

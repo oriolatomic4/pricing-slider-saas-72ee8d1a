@@ -97,13 +97,13 @@ export function CartSidebar() {
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
-        <div className="h-full bg-gray-950 dark:bg-gray-950 flex flex-col shadow-xl">
+        <div className="h-full bg-white dark:bg-gray-950 flex flex-col shadow-xl">
           <div className="relative h-full flex flex-col overflow-hidden">
             {/* Close button */}
             <Button
               variant="ghost"
               size="icon"
-              className="absolute top-4 right-4 z-10 text-gray-400 hover:text-white"
+              className="absolute top-4 right-4 z-10 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white"
               onClick={handleClose}
             >
               <X className="h-5 w-5" />

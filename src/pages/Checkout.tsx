@@ -57,7 +57,7 @@ const Checkout = () => {
           <div className="p-6 border-b border-gray-200 dark:border-gray-800">
             <h2 className="text-xl font-semibold mb-4 text-black dark:text-white">Order Summary</h2>
             
-            <div className="bg-gray-950 rounded-lg">
+            <div className="bg-gray-50 dark:bg-gray-950 rounded-lg">
               <CartContent 
                 selectedPlan={selectedPlan}
                 encoderPurchase={encoderPurchase}
