@@ -40,7 +40,7 @@ export const CartFooter = ({ subtotal, nextPath, onClose }: CartFooterProps) => 
         
         <Button
           variant="outline"
-          className="w-full text-gray-700 dark:text-gray-300 py-4 border-gray-300 dark:border-gray-700"
+          className="w-full flex justify-center items-center text-gray-700 dark:text-gray-300 py-4 border-gray-300 dark:border-gray-700"
           onClick={onClose}
         >
           <ShoppingBag className="mr-2 h-4 w-4" />

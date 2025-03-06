@@ -44,7 +44,7 @@ export const CartContent = ({
   const isEmpty = !selectedPlan && !encoderPurchase && accessoryItems === 0;
 
   return (
-    <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-gray-50 dark:bg-gray-950">
+    <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-white dark:bg-gray-950">
       {/* Main product header when we have something in the cart */}
       {(selectedPlan || (encoderPurchase && encoderPurchase.count > 0)) && (
         <div className="mb-4">
