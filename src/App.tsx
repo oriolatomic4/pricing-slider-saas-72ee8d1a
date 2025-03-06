@@ -1,4 +1,3 @@
-
 import { ThemeProvider } from "./context/ThemeContext";
 import { CartProvider } from "./context/CartContext";
 import Index from "./pages/Index";
@@ -7,6 +6,7 @@ import { Routes, Route, BrowserRouter, useLocation } from "react-router-dom";
 import Pricing from "./pages/Pricing";
 import EncoderSelection from "./pages/EncoderSelection";
 import Accessories from "./pages/Accessories";
+import Checkout from "./pages/Checkout";
 import { TopNav } from "./components/navigation/TopNav";
 import { PurchaseStepsNav } from "./components/navigation/PurchaseStepsNav";
 import { CartSidebar } from "./components/cart/CartSidebar";
@@ -67,6 +67,7 @@ function App() {
                     <Route path="/pricing" element={<Pricing />} />
                     <Route path="/encoder-selection" element={<EncoderSelection />} />
                     <Route path="/accessories" element={<Accessories />} />
+                    <Route path="/checkout" element={<Checkout />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </div>

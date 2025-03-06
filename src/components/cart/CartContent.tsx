@@ -41,6 +41,7 @@ export const CartContent = ({
   
   const mainProduct = selectedPlan ? selectedPlan.name : encoderPurchase && encoderPurchase.count > 0 ? "Vitruve Encoder" : "";
   const subtitle = selectedPlan ? "Includes Vitruve Lifetime Warranty" : "";
+  const isEmpty = !selectedPlan && !encoderPurchase && accessoryItems === 0;
 
   return (
     <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 bg-gray-950">
@@ -109,7 +110,7 @@ export const CartContent = ({
       )}
       
       {/* Empty state */}
-      {!selectedPlan && !encoderPurchase && accessoryItems === 0 && (
+      {isEmpty && (
         <div className="text-center py-10 text-gray-500 flex flex-col items-center">
           <Box className="w-12 h-12 mb-3 text-gray-700" />
           <p className="text-base">Your cart is empty</p>
