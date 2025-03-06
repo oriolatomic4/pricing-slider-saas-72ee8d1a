@@ -74,9 +74,9 @@ const Accessories = () => {
   }, []);
 
   return (
-    <div className="pt-32 pb-28 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-200">
+    <div className="pt-16 pb-28 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-200">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold tracking-tight mb-10 bg-gradient-to-r from-vitruve-purple via-vitruve-cyan to-vitruve-yellow bg-clip-text text-transparent text-center">
+        <h1 className="text-4xl font-bold tracking-tight mb-10 text-black dark:text-white text-center">
           Select your accessories
         </h1>
       
