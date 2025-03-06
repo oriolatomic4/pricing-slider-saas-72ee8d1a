@@ -4,8 +4,16 @@ import { XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { MinimalTopNav } from "@/components/navigation/MinimalTopNav";
+import { toast } from "sonner";
 
 const PaymentFailed = () => {
+  // Show an error toast when the component mounts
+  React.useEffect(() => {
+    toast.error("Your payment could not be processed", {
+      description: "Please try again or use a different payment method"
+    });
+  }, []);
+
   return (
     <>
       <MinimalTopNav />
