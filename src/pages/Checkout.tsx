@@ -45,7 +45,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-200">
+    <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-200">
       <div className="max-w-3xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4 text-black dark:text-white">Checkout</h1>
