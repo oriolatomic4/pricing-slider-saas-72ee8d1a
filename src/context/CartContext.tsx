@@ -128,19 +128,26 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getCartItemCount = () => {
+    let totalCount = 0;
+    
     // Count accessories with quantity > 0
-    const accessoriesCount = Object.entries(cart)
-      .filter(([_, quantity]) => quantity > 0)
-      .reduce((acc, [_, count]) => acc + count, 0);
+    const accessoriesCount = Object.values(cart).reduce((acc, quantity) => {
+      // Only count items with quantity > 0
+      return quantity > 0 ? acc + quantity : acc;
+    }, 0);
+    totalCount += accessoriesCount;
     
     // Count encoder (if any)
-    const encoderCount = encoderPurchase && encoderPurchase.count > 0 ? encoderPurchase.count : 0;
+    if (encoderPurchase && encoderPurchase.count > 0) {
+      totalCount += encoderPurchase.count;
+    }
     
     // Count plan (if any)
-    const planCount = selectedPlan ? 1 : 0;
+    if (selectedPlan) {
+      totalCount += 1;
+    }
     
-    // Total items count
-    return accessoriesCount + encoderCount + planCount;
+    return totalCount;
   };
 
   const getSubtotal = () => {
