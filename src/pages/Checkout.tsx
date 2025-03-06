@@ -52,7 +52,7 @@ const Checkout = () => {
           <p className="text-gray-600 dark:text-gray-300">Review your order before completing your purchase</p>
         </div>
 
-        <div className="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow">
+        <div className="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow transition-colors duration-200">
           {/* Order summary section using the CartContent component */}
           <div className="p-6 border-b border-gray-200 dark:border-gray-800">
             <h2 className="text-xl font-semibold mb-4 text-black dark:text-white">Order Summary</h2>
@@ -78,8 +78,8 @@ const Checkout = () => {
                 <span className="font-semibold text-black dark:text-white">€{getSubtotal().toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Shipping</span>
-                <span className="text-gray-500">Free</span>
+                <span className="text-gray-500 dark:text-gray-400">Shipping</span>
+                <span className="text-gray-500 dark:text-gray-400">Free</span>
               </div>
               <div className="flex justify-between text-base font-bold pt-4 border-t border-gray-200 dark:border-gray-800">
                 <span className="text-black dark:text-white">Total</span>
@@ -99,7 +99,7 @@ const Checkout = () => {
               
               <Button
                 variant="outline"
-                className="w-full py-4"
+                className="w-full py-4 border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200"
                 asChild
               >
                 <Link to="/accessories">

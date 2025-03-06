@@ -85,7 +85,7 @@ export function CartSidebar() {
       {/* Overlay backdrop when cart is open */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/60 z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/60 dark:bg-black/60 z-40 transition-opacity duration-300"
           onClick={handleClose}
         />
       )}
@@ -97,7 +97,7 @@ export function CartSidebar() {
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
-        <div className="h-full bg-gray-950 flex flex-col shadow-xl">
+        <div className="h-full bg-gray-950 dark:bg-gray-950 flex flex-col shadow-xl">
           <div className="relative h-full flex flex-col overflow-hidden">
             {/* Close button */}
             <Button
