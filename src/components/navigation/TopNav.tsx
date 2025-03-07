@@ -16,19 +16,13 @@ export function TopNav() {
 
   // Handle scroll to hide top bar and move main nav up
   React.useEffect(() => {
-    let lastScrollY = window.scrollY;
-    
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        setShowTopBar(false);
-      } else if (currentScrollY < lastScrollY || currentScrollY <= 10) {
-        setShowTopBar(true);
-      }
-      
-      lastScrollY = currentScrollY;
+      // Only show the secondary bar when at the very top (scrollY === 0)
+      setShowTopBar(window.scrollY === 0);
     };
+    
+    // Initial check
+    handleScroll();
     
     window.addEventListener('scroll', handleScroll, { passive: true });
     
