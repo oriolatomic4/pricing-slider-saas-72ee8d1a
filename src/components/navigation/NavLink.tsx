@@ -55,7 +55,17 @@ export function NavLink({ href, children, dropdown, dropdownContent }: NavLinkPr
 }
 
 // Dropdown menu components for consistent styling
-export function DropdownItem({ href, title, description }: { href: string; title: string; description?: string }) {
+export function DropdownItem({ 
+  href, 
+  title, 
+  description, 
+  icon 
+}: { 
+  href: string; 
+  title: string; 
+  description?: string;
+  icon?: React.ReactNode;
+}) {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -63,11 +73,18 @@ export function DropdownItem({ href, title, description }: { href: string; title
           <a
             href={href}
             className={cn(
-              "flex flex-col px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              "flex items-start px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             )}
           >
-            <span className="font-medium text-gray-900 dark:text-white">{title}</span>
-            {description && <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">{description}</span>}
+            {icon && (
+              <div className="flex-shrink-0 mr-3 mt-1">
+                {icon}
+              </div>
+            )}
+            <div>
+              <span className="font-medium text-gray-900 dark:text-white">{title}</span>
+              {description && <span className="block text-xs text-gray-500 dark:text-gray-400 mt-1">{description}</span>}
+            </div>
           </a>
         </TooltipTrigger>
         <TooltipContent side="right">

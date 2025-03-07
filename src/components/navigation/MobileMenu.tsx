@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Phone } from "lucide-react";
+import { Phone, BarChart3, LayoutGrid, FlaskConical } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface MobileMenuProps {
@@ -17,24 +17,33 @@ export function MobileMenu({ isOpen }: MobileMenuProps) {
         <div className="border-b border-gray-200 dark:border-gray-700 pb-3 mb-3">
           <Link
             to="/vitruve-builder"
-            className="flex flex-col px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex items-start px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            <span className="font-medium">Vitruve Builder</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">Build your strength profile</span>
+            <LayoutGrid className="w-6 h-6 text-vitruve-cyan mr-3 mt-1 flex-shrink-0" />
+            <div>
+              <span className="font-medium">Vitruve Builder</span>
+              <span className="block text-xs text-gray-500 dark:text-gray-400 mt-1">Build your strength profile</span>
+            </div>
           </Link>
           <Link
             to="/vitruve-training"
-            className="flex flex-col px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex items-start px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            <span className="font-medium">Vitruve Training</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">Personalized training programs</span>
+            <FlaskConical className="w-6 h-6 text-vitruve-cyan mr-3 mt-1 flex-shrink-0" />
+            <div>
+              <span className="font-medium">Vitruve Training</span>
+              <span className="block text-xs text-gray-500 dark:text-gray-400 mt-1">Personalized training programs</span>
+            </div>
           </Link>
           <Link
             to="/vitruve-labs"
-            className="flex flex-col px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex items-start px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            <span className="font-medium">Vitruve Labs</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">Research and innovation</span>
+            <BarChart3 className="w-6 h-6 text-vitruve-cyan mr-3 mt-1 flex-shrink-0" />
+            <div>
+              <span className="font-medium">Vitruve Labs</span>
+              <span className="block text-xs text-gray-500 dark:text-gray-400 mt-1">Research and innovation</span>
+            </div>
           </Link>
         </div>
         
