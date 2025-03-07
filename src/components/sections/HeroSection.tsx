@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 
 // Extract the text content into variables for easier editing
 const HERO_PARAGRAPH_LINE1 = "The S&C software that boosts your coaching 10X.";
-const HERO_PARAGRAPH_LINE2 = "Program, train, and evaluate in the AI-powered all-in-one platform that gives you an unfair advantage.";
+const HERO_PARAGRAPH_LINE2 = "Program, train, and evaluate with the AI-powered, all-in-one platform that gives coaches an unfair advantage.";
 
 const HeroSection = () => {
   const {
