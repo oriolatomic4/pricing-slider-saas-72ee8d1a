@@ -11,71 +11,71 @@ export function MobileMenu({ isOpen }: MobileMenuProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="md:hidden bg-white dark:bg-gray-900 p-4 pt-2 pb-6 border-t border-gray-200 dark:border-gray-700">
-      <div className="space-y-3">
-        <div className="border-b border-gray-200 dark:border-gray-700 pb-2 mb-2">
-          <h3 className="px-3 py-1 font-medium text-sm text-gray-500 dark:text-gray-400">Product</h3>
+    <div className="md:hidden bg-white dark:bg-gray-900 p-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="space-y-4">
+        <div className="border-b border-gray-200 dark:border-gray-700 pb-3 mb-3">
+          <h3 className="px-3 mb-2 font-medium text-sm text-gray-500 dark:text-gray-400">Product</h3>
           <a
             href="/vitruve-builder"
-            className="flex flex-col px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex flex-col px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <span className="font-medium">Vitruve Builder</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Build your strength profile</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">Build your strength profile</span>
           </a>
           <a
             href="/vitruve-training"
-            className="flex flex-col px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex flex-col px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <span className="font-medium">Vitruve Training</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Personalized training programs</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">Personalized training programs</span>
           </a>
           <a
             href="/vitruve-labs"
-            className="flex flex-col px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex flex-col px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <span className="font-medium">Vitruve Labs</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">Research and innovation</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">Research and innovation</span>
           </a>
         </div>
         
         <a
           href="/academy"
-          className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Academy
         </a>
         <a
           href="/support"
-          className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Support
         </a>
         <a
           href="/login"
-          className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Login
         </a>
-        <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+        <div className="border-t border-gray-200 dark:border-gray-700 my-3"></div>
         <a
           href="/customers"
-          className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Customers
         </a>
         <a
           href="/resources"
-          className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Resources
         </a>
         <a
           href="/blog"
-          className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Blog
         </a>
-        <div className="mt-4 space-y-2">
+        <div className="mt-5 space-y-3">
           <Button 
             className="w-full justify-start" 
             variant="outline"

@@ -63,11 +63,11 @@ export function DropdownItem({ href, title, description }: { href: string; title
           <a
             href={href}
             className={cn(
-              "flex flex-col rounded-md p-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              "flex flex-col px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             )}
           >
             <span className="font-medium text-gray-900 dark:text-white">{title}</span>
-            {description && <span className="text-xs text-gray-500 dark:text-gray-400">{description}</span>}
+            {description && <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">{description}</span>}
           </a>
         </TooltipTrigger>
         <TooltipContent side="right">
