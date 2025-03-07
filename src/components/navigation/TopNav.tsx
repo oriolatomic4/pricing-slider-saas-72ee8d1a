@@ -22,9 +22,33 @@ export function TopNav() {
   const isMobile = useIsMobile();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const location = useLocation();
+  const [showTopBar, setShowTopBar] = React.useState(true);
   
   // Check if current path is in the purchase flow
   const isPurchasePage = purchaseFlowPaths.includes(location.pathname);
+
+  // Handle scroll to hide top bar
+  React.useEffect(() => {
+    let lastScrollY = window.scrollY;
+    
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setShowTopBar(false);
+      } else if (currentScrollY < lastScrollY || currentScrollY <= 10) {
+        setShowTopBar(true);
+      }
+      
+      lastScrollY = currentScrollY;
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const NavLink = ({
     href,
@@ -43,18 +67,15 @@ export function TopNav() {
 
   const TopBarLink = ({
     href,
-    children,
-    icon
+    children
   }: {
     href: string;
     children: React.ReactNode;
-    icon?: React.ReactNode;
   }) => (
     <a
       href={href}
-      className="flex items-center gap-1 text-sm text-gray-700 dark:text-gray-300 hover:text-vitruve-purple dark:hover:text-vitruve-cyan transition-colors duration-200"
+      className="flex items-center text-sm text-gray-700 dark:text-gray-300 hover:text-vitruve-purple dark:hover:text-vitruve-cyan transition-colors duration-200"
     >
-      {icon}
       <span>{children}</span>
     </a>
   );
@@ -64,23 +85,24 @@ export function TopNav() {
       {/* Secondary Navigation Bar (Academy, Support, Login) */}
       <div
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 w-full border-b transition-colors duration-200",
+          "fixed top-0 left-0 right-0 z-50 w-full border-b transition-all duration-200",
           theme === "dark"
             ? "border-white/5 bg-black/90 backdrop-blur-sm"
-            : "border-gray-100 bg-white/90 backdrop-blur-sm"
+            : "border-gray-100 bg-white/90 backdrop-blur-sm",
+          showTopBar ? "translate-y-0" : "-translate-y-full"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-end h-9">
             {!isMobile && (
               <div className="flex items-center space-x-4">
-                <TopBarLink href="/academy" icon={<GraduationCap className="w-3.5 h-3.5" />}>
+                <TopBarLink href="/academy">
                   Academy
                 </TopBarLink>
-                <TopBarLink href="/support" icon={<HelpCircle className="w-3.5 h-3.5" />}>
+                <TopBarLink href="/support">
                   Support
                 </TopBarLink>
-                <TopBarLink href="/login" icon={<LogIn className="w-3.5 h-3.5" />}>
+                <TopBarLink href="/login">
                   Login
                 </TopBarLink>
               </div>
@@ -178,21 +200,18 @@ export function TopNav() {
                 href="/academy"
                 className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
               >
-                <GraduationCap className="w-5 h-5 mr-3" />
                 Academy
               </a>
               <a
                 href="/support"
                 className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
               >
-                <HelpCircle className="w-5 h-5 mr-3" />
                 Support
               </a>
               <a
                 href="/login"
                 className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
               >
-                <LogIn className="w-5 h-5 mr-3" />
                 Login
               </a>
               <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
