@@ -1,7 +1,8 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Phone, MenuIcon, X, BarChart3, LayoutGrid, FlaskConical } from "lucide-react";
+import { Phone, MenuIcon, X } from "lucide-react";
 import { ToggleTheme } from "./ToggleTheme";
 import { NavLink, DropdownItem } from "./NavLink";
 import { CartButton } from "@/components/cart/CartButton";
@@ -19,28 +20,28 @@ export function MainNavBar({ theme, showTopBar, isPurchasePage }: MainNavBarProp
   const isMobile = useIsMobile();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
-  // Product dropdown content with icons
+  // Product dropdown content with PNG icons
   const productDropdownContent = (
     <div className="py-2">
       <DropdownItem 
         href="/vitruve-builder" 
         title="Vitruve Builder" 
         description="Build your strength profile" 
-        icon={<LayoutGrid className="w-6 h-6 text-vitruve-cyan" />}
+        icon={<img src="/lovable-uploads/f05857c3-fe50-4cb4-ba16-dbc769e65b0a.png" alt="Builder" className="w-6 h-6" />}
       />
       <div className="border-t border-gray-200 dark:border-gray-800 my-2"></div>
       <DropdownItem 
         href="/vitruve-training" 
         title="Vitruve Training" 
         description="Personalized training programs" 
-        icon={<FlaskConical className="w-6 h-6 text-vitruve-cyan" />}
+        icon={<img src="/lovable-uploads/cb4f7b64-baba-4b66-90f0-01a8c6a869c5.png" alt="Training" className="w-6 h-6" />}
       />
       <div className="border-t border-gray-200 dark:border-gray-800 my-2"></div>
       <DropdownItem 
         href="/vitruve-labs" 
         title="Vitruve Labs" 
         description="Research and innovation" 
-        icon={<BarChart3 className="w-6 h-6 text-vitruve-cyan" />}
+        icon={<img src="/lovable-uploads/4b5878f7-4f70-4603-b6ca-c40129e46c8b.png" alt="Labs" className="w-6 h-6" />}
       />
     </div>
   );
