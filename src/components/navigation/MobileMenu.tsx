@@ -17,21 +17,24 @@ export function MobileMenu({ isOpen }: MobileMenuProps) {
           <h3 className="px-3 py-1 font-medium text-sm text-gray-500 dark:text-gray-400">Product</h3>
           <a
             href="/vitruve-builder"
-            className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex flex-col px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            Vitruve Builder
+            <span className="font-medium">Vitruve Builder</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Build your strength profile</span>
           </a>
           <a
             href="/vitruve-training"
-            className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex flex-col px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            Vitruve Training
+            <span className="font-medium">Vitruve Training</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Personalized training programs</span>
           </a>
           <a
             href="/vitruve-labs"
-            className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex flex-col px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            Vitruve Labs
+            <span className="font-medium">Vitruve Labs</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">Research and innovation</span>
           </a>
         </div>
         

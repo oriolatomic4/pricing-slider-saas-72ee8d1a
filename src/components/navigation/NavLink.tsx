@@ -55,15 +55,6 @@ export function NavLink({ href, children, dropdown, dropdownContent }: NavLinkPr
 }
 
 // Dropdown menu components for consistent styling
-export function DropdownSection({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="p-3">
-      <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{title}</h3>
-      <div className="space-y-1">{children}</div>
-    </div>
-  );
-}
-
 export function DropdownItem({ href, title, description }: { href: string; title: string; description?: string }) {
   return (
     <TooltipProvider>

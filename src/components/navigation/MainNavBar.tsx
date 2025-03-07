@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Phone, MenuIcon, X } from "lucide-react";
 import { ToggleTheme } from "./ToggleTheme";
-import { NavLink, DropdownSection, DropdownItem } from "./NavLink";
+import { NavLink, DropdownItem } from "./NavLink";
 import { CartButton } from "@/components/cart/CartButton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileMenu } from "./MobileMenu";
@@ -21,31 +21,25 @@ export function MainNavBar({ theme, showTopBar, isPurchasePage }: MainNavBarProp
 
   // Product dropdown content
   const productDropdownContent = (
-    <>
-      <DropdownSection title="Vitruve Builder">
-        <DropdownItem 
-          href="/vitruve-builder" 
-          title="Vitruve Builder" 
-          description="Build your strength profile" 
-        />
-      </DropdownSection>
-      <div className="border-t border-gray-200 dark:border-gray-800"></div>
-      <DropdownSection title="Vitruve Training">
-        <DropdownItem 
-          href="/vitruve-training" 
-          title="Vitruve Training" 
-          description="Personalized training programs" 
-        />
-      </DropdownSection>
-      <div className="border-t border-gray-200 dark:border-gray-800"></div>
-      <DropdownSection title="Vitruve Labs">
-        <DropdownItem 
-          href="/vitruve-labs" 
-          title="Vitruve Labs" 
-          description="Research and innovation" 
-        />
-      </DropdownSection>
-    </>
+    <div className="py-2">
+      <DropdownItem 
+        href="/vitruve-builder" 
+        title="Vitruve Builder" 
+        description="Build your strength profile" 
+      />
+      <div className="border-t border-gray-200 dark:border-gray-800 my-2"></div>
+      <DropdownItem 
+        href="/vitruve-training" 
+        title="Vitruve Training" 
+        description="Personalized training programs" 
+      />
+      <div className="border-t border-gray-200 dark:border-gray-800 my-2"></div>
+      <DropdownItem 
+        href="/vitruve-labs" 
+        title="Vitruve Labs" 
+        description="Research and innovation" 
+      />
+    </div>
   );
 
   return (
