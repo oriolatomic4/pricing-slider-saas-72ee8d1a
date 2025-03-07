@@ -4,6 +4,10 @@ import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useEffect, useState, useRef } from "react";
 
+// Extract the text content into variables for easier editing
+const HERO_PARAGRAPH_LINE1 = "The S&C software that boosts your coaching 10X.";
+const HERO_PARAGRAPH_LINE2 = "Program, train, and evaluate in the AI-powered all-in-one platform that gives you an unfair advantage.";
+
 const HeroSection = () => {
   const {
     theme
@@ -49,8 +53,10 @@ const HeroSection = () => {
               <span className="bg-gradient-to-r from-vitruve-cyan to-vitruve-yellow bg-clip-text text-transparent">performance</span>
               <span className="text-white">.</span>
             </h1>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8">The S&amp;C software that boosts your coaching 10X.<br />
-Program, train, and evaluate in the AI-powered all-in-one platform that gives you an unfair advantage.</p>
+            <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8">
+              {HERO_PARAGRAPH_LINE1}<br />
+              {HERO_PARAGRAPH_LINE2}
+            </p>
             <div className="flex justify-center gap-4">
               <Button size="lg" className="bg-vitruve-purple hover:bg-vitruve-purple/90 text-white">
                 Get Started Free
