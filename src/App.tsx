@@ -1,4 +1,3 @@
-
 import { ThemeProvider } from "./context/ThemeContext";
 import { CartProvider } from "./context/CartContext";
 import Index from "./pages/Index";
@@ -35,11 +34,8 @@ const NavigationController = () => {
     return null;
   }
   
-  // Pages that should use the minimal navigation
+  // Pages that should use the minimal navigation - REMOVE the Vitruve product pages from this list
   const minimalNavPaths = [
-    "/vitruve-builder", 
-    "/vitruve-training", 
-    "/vitruve-labs",
     "/academy",
     "/support",
     "/login",
