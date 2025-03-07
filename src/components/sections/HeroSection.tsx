@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
@@ -41,15 +40,15 @@ const HeroSection = () => {
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
               <span className="bg-gradient-to-r from-vitruve-purple to-vitruve-cyan bg-clip-text text-transparent">Empowering </span> 
               <span className="text-white">coaches</span>
-              <span className="text-white">.</span>
+              <span className="text-white">The S&amp;C software that boosts your coaching 10X.
+Program, train, and evaluate in the AI-powered all-in-one platform that gives you an unfair advantage.</span>
               <br />
               <span className="text-white">Elevating </span> 
               <span className="bg-gradient-to-r from-vitruve-cyan to-vitruve-yellow bg-clip-text text-transparent">performance</span>
               <span className="text-white">.</span>
             </h1>
             <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8">The S&amp;C software that boosts your coaching 10X.
-            <br />
-            Program, train, and evaluate in the AI-powered all-in-one platform that fives you an unfair advantage.</p>
+Program, train, and evaluate in the AI-powered all-in-one platform that fives you an unfair advantage.</p>
             <div className="flex justify-center gap-4">
               <Button size="lg" className="bg-vitruve-purple hover:bg-vitruve-purple/90 text-white">
                 Get Started Free
