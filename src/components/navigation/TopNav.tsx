@@ -8,9 +8,6 @@ import {
   Phone,
   MenuIcon,
   X,
-  GraduationCap,
-  HelpCircle,
-  LogIn
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { CartButton } from "@/components/cart/CartButton";
@@ -27,7 +24,7 @@ export function TopNav() {
   // Check if current path is in the purchase flow
   const isPurchasePage = purchaseFlowPaths.includes(location.pathname);
 
-  // Handle scroll to hide top bar
+  // Handle scroll to hide top bar and move main nav up
   React.useEffect(() => {
     let lastScrollY = window.scrollY;
     
@@ -114,10 +111,11 @@ export function TopNav() {
       {/* Main Navigation Bar */}
       <nav
         className={cn(
-          "fixed top-9 left-0 right-0 z-50 border-b transition-colors duration-200",
+          "fixed left-0 right-0 z-50 border-b transition-all duration-200",
           theme === "dark"
             ? "border-white/10 bg-black/80 backdrop-blur-sm"
-            : "border-gray-200 bg-white/80 backdrop-blur-sm"
+            : "border-gray-200 bg-white/80 backdrop-blur-sm",
+          showTopBar ? "top-9" : "top-0"  // This moves the main nav up when the top bar is hidden
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
