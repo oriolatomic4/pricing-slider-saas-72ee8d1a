@@ -42,7 +42,7 @@ const NavigationController = () => {
 // Layout component
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-black transition-colors duration-200">
+    <div className="min-h-screen w-full bg-white dark:bg-black transition-colors duration-200 pt-[6.25rem]">
       {children}
       <CartSidebar />
     </div>
