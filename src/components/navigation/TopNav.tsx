@@ -61,10 +61,10 @@ export function TopNav() {
 
   return (
     <>
-      {/* Top Navigation Bar */}
+      {/* Secondary Navigation Bar (Academy, Support, Login) */}
       <div
         className={cn(
-          "w-full border-b transition-colors duration-200",
+          "fixed top-0 left-0 right-0 z-50 w-full border-b transition-colors duration-200",
           theme === "dark"
             ? "border-white/5 bg-black/90 backdrop-blur-sm"
             : "border-gray-100 bg-white/90 backdrop-blur-sm"
