@@ -1,3 +1,4 @@
+
 import { ThemeProvider } from "./context/ThemeContext";
 import { CartProvider } from "./context/CartContext";
 import Index from "./pages/Index";
@@ -20,6 +21,9 @@ import FooterSection from "./components/sections/FooterSection";
 import { purchaseFlowPaths } from "./lib/utils";
 import { MinimalTopNav } from "./components/navigation/MinimalTopNav";
 import BannerSection from "./components/sections/BannerSection";
+import VitruveBuilder from "./pages/VitruveBuilder";
+import VitruveTraining from "./pages/VitruveTraining";
+import VitruveLabs from "./pages/VitruveLabs";
 
 // Create a client for React Query
 const queryClient = new QueryClient();
@@ -108,28 +112,10 @@ function App() {
                     <Route path="/payment-success" element={<PaymentSuccess />} />
                     <Route path="/payment-failed" element={<PaymentFailed />} />
                     
-                    {/* New product pages */}
-                    <Route 
-                      path="/vitruve-builder" 
-                      element={<ProductPage 
-                        title="Vitruve Builder" 
-                        description="Build your strength profile with our advanced tools and technology." 
-                      />} 
-                    />
-                    <Route 
-                      path="/vitruve-training" 
-                      element={<ProductPage 
-                        title="Vitruve Training" 
-                        description="Get personalized training programs tailored to your specific needs and goals." 
-                      />} 
-                    />
-                    <Route 
-                      path="/vitruve-labs" 
-                      element={<ProductPage 
-                        title="Vitruve Labs" 
-                        description="Explore our research and innovation center for the latest in fitness technology." 
-                      />} 
-                    />
+                    {/* Updated product pages with dedicated components */}
+                    <Route path="/vitruve-builder" element={<VitruveBuilder />} />
+                    <Route path="/vitruve-training" element={<VitruveTraining />} />
+                    <Route path="/vitruve-labs" element={<VitruveLabs />} />
                     
                     {/* Simple pages for other navigation items */}
                     <Route 
