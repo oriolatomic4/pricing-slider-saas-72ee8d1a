@@ -1,14 +1,13 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useEffect, useState, useRef } from "react";
-
 const HeroSection = () => {
-  const { theme } = useTheme();
+  const {
+    theme
+  } = useTheme();
   const [scrollPosition, setScrollPosition] = useState(0);
   const videoContainerRef = useRef<HTMLDivElement>(null);
-  
   useEffect(() => {
     const handleScroll = () => {
       const position = window.scrollY;
@@ -17,27 +16,21 @@ const HeroSection = () => {
       const limitedPosition = Math.min(position, maxScrollForAnimation);
       setScrollPosition(limitedPosition);
     };
-    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   // Calculate rotation, scale and vertical position based on scroll position
-  const rotationDegree = 15 - (scrollPosition / 200) * 15;
-  const scaleValue = 0.97 + (scrollPosition / 200) * 0.03;
+  const rotationDegree = 15 - scrollPosition / 200 * 15;
+  const scaleValue = 0.97 + scrollPosition / 200 * 0.03;
   // Initial overlap with buttons (negative value moves up), gradually moves down as user scrolls
   // Changed from -20 to -50 to create more overlap with the buttons
-  const translateY = -50 + (scrollPosition / 200) * 50;
-  
-  return (
-    <div className="relative">
+  const translateY = -50 + scrollPosition / 200 * 50;
+  return <div className="relative">
       {/* Background image with overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center" 
-        style={{
-          backgroundImage: 'url("/lovable-uploads/8965823e-f42e-472b-b3de-8c3cc25c57c0.png")',
-        }}
-      />
+      <div className="absolute inset-0 bg-cover bg-center" style={{
+      backgroundImage: 'url("/lovable-uploads/8965823e-f42e-472b-b3de-8c3cc25c57c0.png")'
+    }} />
       {/* Dark overlay for better text readability */}
       <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-black/70' : 'bg-black/40'}`} />
       
@@ -53,32 +46,23 @@ const HeroSection = () => {
               <span className="bg-gradient-to-r from-vitruve-cyan to-vitruve-yellow bg-clip-text text-transparent">performance</span>
               <span className="text-white">.</span>
             </h1>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8">
-              Track, analyze, and optimize your athlete's performance with real-time velocity monitoring
-            </p>
+            <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8">The S&amp;C software that boosts your coaching 10X.
+Program, train, and evaluate in the AI-powered all-in-one platform that fives you an unfair advantage.</p>
             <div className="flex justify-center gap-4">
               <Button size="lg" className="bg-vitruve-purple hover:bg-vitruve-purple/90 text-white">
                 Get Started Free
                 <ArrowRight className="ml-2" />
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-vitruve-purple/30 text-vitruve-purple bg-white/10 backdrop-blur-sm hover:bg-vitruve-purple/10 hover:border-vitruve-purple/50"
-              >
+              <Button size="lg" variant="outline" className="border-vitruve-purple/30 text-vitruve-purple bg-white/10 backdrop-blur-sm hover:bg-vitruve-purple/10 hover:border-vitruve-purple/50">
                 Book a Demo
               </Button>
             </div>
           </div>
 
-          <div 
-            ref={videoContainerRef}
-            className="max-w-5xl mx-auto transition-all duration-300 ease-out shadow-2xl"
-            style={{ 
-              transform: `perspective(1000px) rotateX(${rotationDegree}deg) scale(${scaleValue}) translateY(${translateY}px)`,
-              transformOrigin: 'center top',
-            }}
-          >
+          <div ref={videoContainerRef} className="max-w-5xl mx-auto transition-all duration-300 ease-out shadow-2xl" style={{
+          transform: `perspective(1000px) rotateX(${rotationDegree}deg) scale(${scaleValue}) translateY(${translateY}px)`,
+          transformOrigin: 'center top'
+        }}>
             {/* Modern tablet frame inspired by the reference image */}
             <div className="relative rounded-[2rem] overflow-hidden bg-[#222222] border-[14px] border-[#222222]">
               {/* Subtle bezel gradient */}
@@ -108,22 +92,17 @@ const HeroSection = () => {
                 
                 {/* Actual video content */}
                 <div style={{
-                  position: 'relative',
-                  paddingBottom: '56.42633228840126%',
-                  height: 0,
-                }}>
-                  <iframe 
-                    src="https://www.loom.com/embed/24346be13e24422685493e4aecedfedf?sid=4fb67d2f-0b09-454b-be76-c16072241885" 
-                    frameBorder="0" 
-                    allowFullScreen 
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%'
-                    }} 
-                  />
+                position: 'relative',
+                paddingBottom: '56.42633228840126%',
+                height: 0
+              }}>
+                  <iframe src="https://www.loom.com/embed/24346be13e24422685493e4aecedfedf?sid=4fb67d2f-0b09-454b-be76-c16072241885" frameBorder="0" allowFullScreen style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%'
+                }} />
                 </div>
                 
                 {/* Bottom navigation bar */}
@@ -167,8 +146,6 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default HeroSection;
