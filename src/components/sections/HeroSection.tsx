@@ -50,7 +50,7 @@ const HeroSection = () => {
               <span className="text-white">.</span>
             </h1>
             <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8">The S&amp;C software that boosts your coaching 10X.<br />
-Program, train, and evaluate in the AI-powered all-in-one platform that fives you an unfair advantage.</p>
+Program, train, and evaluate in the AI-powered all-in-one platform that gives you an unfair advantage.</p>
             <div className="flex justify-center gap-4">
               <Button size="lg" className="bg-vitruve-purple hover:bg-vitruve-purple/90 text-white">
                 Get Started Free
