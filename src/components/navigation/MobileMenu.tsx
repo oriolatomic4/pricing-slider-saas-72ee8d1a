@@ -13,6 +13,28 @@ export function MobileMenu({ isOpen }: MobileMenuProps) {
   return (
     <div className="md:hidden bg-white dark:bg-gray-900 p-4 pt-2 pb-6 border-t border-gray-200 dark:border-gray-700">
       <div className="space-y-3">
+        <div className="border-b border-gray-200 dark:border-gray-700 pb-2 mb-2">
+          <h3 className="px-3 py-1 font-medium text-sm text-gray-500 dark:text-gray-400">Product</h3>
+          <a
+            href="/vitruve-builder"
+            className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            Vitruve Builder
+          </a>
+          <a
+            href="/vitruve-training"
+            className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            Vitruve Training
+          </a>
+          <a
+            href="/vitruve-labs"
+            className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            Vitruve Labs
+          </a>
+        </div>
+        
         <a
           href="/academy"
           className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -37,12 +59,6 @@ export function MobileMenu({ isOpen }: MobileMenuProps) {
           className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Customers
-        </a>
-        <a
-          href="/solutions"
-          className="flex items-center px-3 py-2 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
-        >
-          Solutions
         </a>
         <a
           href="/resources"
