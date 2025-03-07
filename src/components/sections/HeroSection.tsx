@@ -1,13 +1,16 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useEffect, useState, useRef } from "react";
+
 const HeroSection = () => {
   const {
     theme
   } = useTheme();
   const [scrollPosition, setScrollPosition] = useState(0);
   const videoContainerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const handleScroll = () => {
       const position = window.scrollY;
@@ -26,6 +29,7 @@ const HeroSection = () => {
   // Initial overlap with buttons (negative value moves up), gradually moves down as user scrolls
   // Changed from -20 to -50 to create more overlap with the buttons
   const translateY = -50 + scrollPosition / 200 * 50;
+
   return <div className="relative">
       {/* Background image with overlay */}
       <div className="absolute inset-0 bg-cover bg-center" style={{
@@ -40,8 +44,6 @@ const HeroSection = () => {
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
               <span className="bg-gradient-to-r from-vitruve-purple to-vitruve-cyan bg-clip-text text-transparent">Empowering </span> 
               <span className="text-white">coaches</span>
-              <span className="text-white">The S&amp;C software that boosts your coaching 10X.
-Program, train, and evaluate in the AI-powered all-in-one platform that gives you an unfair advantage.</span>
               <br />
               <span className="text-white">Elevating </span> 
               <span className="bg-gradient-to-r from-vitruve-cyan to-vitruve-yellow bg-clip-text text-transparent">performance</span>
