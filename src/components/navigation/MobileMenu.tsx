@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -14,67 +15,66 @@ export function MobileMenu({ isOpen }: MobileMenuProps) {
     <div className="md:hidden bg-white dark:bg-gray-900 p-4 border-t border-gray-200 dark:border-gray-700">
       <div className="space-y-4">
         <div className="border-b border-gray-200 dark:border-gray-700 pb-3 mb-3">
-          <h3 className="px-3 mb-2 font-medium text-sm text-gray-500 dark:text-gray-400">Product</h3>
-          <a
-            href="/vitruve-builder"
+          <Link
+            to="/vitruve-builder"
             className="flex flex-col px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <span className="font-medium">Vitruve Builder</span>
             <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">Build your strength profile</span>
-          </a>
-          <a
-            href="/vitruve-training"
+          </Link>
+          <Link
+            to="/vitruve-training"
             className="flex flex-col px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <span className="font-medium">Vitruve Training</span>
             <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">Personalized training programs</span>
-          </a>
-          <a
-            href="/vitruve-labs"
+          </Link>
+          <Link
+            to="/vitruve-labs"
             className="flex flex-col px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <span className="font-medium">Vitruve Labs</span>
             <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">Research and innovation</span>
-          </a>
+          </Link>
         </div>
         
-        <a
-          href="/academy"
+        <Link
+          to="/academy"
           className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Academy
-        </a>
-        <a
-          href="/support"
+        </Link>
+        <Link
+          to="/support"
           className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Support
-        </a>
-        <a
-          href="/login"
+        </Link>
+        <Link
+          to="/login"
           className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Login
-        </a>
+        </Link>
         <div className="border-t border-gray-200 dark:border-gray-700 my-3"></div>
-        <a
-          href="/customers"
+        <Link
+          to="/customers"
           className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Customers
-        </a>
-        <a
-          href="/resources"
+        </Link>
+        <Link
+          to="/resources"
           className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Resources
-        </a>
-        <a
-          href="/blog"
+        </Link>
+        <Link
+          to="/blog"
           className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Blog
-        </a>
+        </Link>
         <div className="mt-5 space-y-3">
           <Button 
             className="w-full justify-start" 

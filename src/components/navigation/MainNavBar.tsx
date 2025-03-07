@@ -8,6 +8,7 @@ import { NavLink, DropdownItem } from "./NavLink";
 import { CartButton } from "@/components/cart/CartButton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { MobileMenu } from "./MobileMenu";
+import { Link } from "react-router-dom";
 
 interface MainNavBarProps {
   theme: "light" | "dark";
@@ -56,8 +57,8 @@ export function MainNavBar({ theme, showTopBar, isPurchasePage }: MainNavBarProp
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="flex-shrink-0"
               >
                 <img 
@@ -65,7 +66,7 @@ export function MainNavBar({ theme, showTopBar, isPurchasePage }: MainNavBarProp
                   alt="Vitruve Logo" 
                   className="h-12"
                 />
-              </a>
+              </Link>
             </div>
 
             {!isMobile && (
