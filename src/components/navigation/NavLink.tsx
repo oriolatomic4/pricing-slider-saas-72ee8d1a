@@ -36,7 +36,7 @@ export function NavLink({ href, children, dropdown, dropdownContent }: NavLinkPr
         </button>
         
         {isOpen && (
-          <div className="absolute left-0 top-full mt-1 w-64 rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-lg z-50 animate-slide-up-and-fade">
+          <div className="absolute left-0 top-full -mt-1 pt-3 w-64 rounded-md border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-lg z-50 animate-slide-up-and-fade">
             {dropdownContent}
           </div>
         )}
