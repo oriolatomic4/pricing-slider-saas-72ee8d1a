@@ -24,13 +24,23 @@ serve(async (req) => {
       );
     }
 
-    // Shopify storefront API endpoint
-    const SHOPIFY_DOMAIN = Deno.env.get("SHOPIFY_DOMAIN");
-    const SHOPIFY_STOREFRONT_ACCESS_TOKEN = Deno.env.get("SHOPIFY_STOREFRONT_ACCESS_TOKEN");
+    // Access Shopify configuration from Deno.env or from params
+    const SHOPIFY_DOMAIN = Deno.env.get("SHOPIFY_DOMAIN") || Deno.env.get("SUPABASE_PARAMS_SHOPIFY_DOMAIN");
+    const SHOPIFY_STOREFRONT_ACCESS_TOKEN = Deno.env.get("SHOPIFY_STOREFRONT_ACCESS_TOKEN") || 
+                                           Deno.env.get("SUPABASE_PARAMS_SHOPIFY_STOREFRONT_ACCESS_TOKEN");
+    
+    console.log('Shopify Domain:', SHOPIFY_DOMAIN);
+    console.log('Access Token Available:', !!SHOPIFY_STOREFRONT_ACCESS_TOKEN);
     
     if (!SHOPIFY_DOMAIN || !SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
       return new Response(
-        JSON.stringify({ error: 'Missing Shopify configuration' }),
+        JSON.stringify({ 
+          error: 'Missing Shopify configuration',
+          details: {
+            hasDomain: !!SHOPIFY_DOMAIN,
+            hasToken: !!SHOPIFY_STOREFRONT_ACCESS_TOKEN
+          }
+        }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
       );
     }
@@ -77,6 +87,7 @@ serve(async (req) => {
     };
 
     console.log('Sending GraphQL request to Shopify:', JSON.stringify(variables, null, 2));
+    console.log('Shopify API URL:', storefrontApiUrl);
 
     const response = await fetch(storefrontApiUrl, {
       method: 'POST',

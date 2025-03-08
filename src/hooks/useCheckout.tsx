@@ -59,9 +59,7 @@ export const useCheckout = () => {
             
             lineItems.push({
               variantId: variantId,
-              quantity: quantity,
-              title: product.name,
-              price: product.price * 100 // Convert to cents for Shopify
+              quantity: quantity
             });
           }
         }
@@ -71,9 +69,7 @@ export const useCheckout = () => {
       if (selectedPlan) {
         lineItems.push({
           variantId: selectedPlan.shopifyVariantId, // Use the real Shopify variant ID
-          quantity: 1,
-          title: selectedPlan.name,
-          price: selectedPlan.price * 100 // Convert to cents for Shopify
+          quantity: 1
         });
       }
       
@@ -81,9 +77,7 @@ export const useCheckout = () => {
       if (encoderPurchase && encoderPurchase.count > 0) {
         lineItems.push({
           variantId: '53714682577222', // Encoder variant ID
-          quantity: encoderPurchase.count,
-          title: 'Vitruve Encoder Device',
-          price: encoderPurchase.pricePerUnit * 100 // Convert to cents for Shopify
+          quantity: encoderPurchase.count
         });
       }
       
@@ -112,6 +106,8 @@ export const useCheckout = () => {
       
       // If successful, redirect to the Shopify checkout URL
       if (data && data.url) {
+        // Mark purchase as complete in our system before redirecting
+        completePurchase();
         window.location.href = data.url;
       } else {
         console.error('No checkout URL returned');
