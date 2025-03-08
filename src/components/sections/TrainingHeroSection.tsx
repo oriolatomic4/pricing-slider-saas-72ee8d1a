@@ -3,11 +3,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useEffect, useState, useRef } from "react";
+import ModelViewer from "../3d/ModelViewer";
 
 const TrainingHeroSection = () => {
   const { theme } = useTheme();
   const [scrollPosition, setScrollPosition] = useState(0);
   const videoContainerRef = useRef<HTMLDivElement>(null);
+  const [showModel, setShowModel] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +26,10 @@ const TrainingHeroSection = () => {
   const rotationDegree = 15 - scrollPosition / 200 * 15;
   const scaleValue = 0.97 + scrollPosition / 200 * 0.03;
   const translateY = -50 + scrollPosition / 200 * 50;
+
+  const handleViewIn3D = () => {
+    setShowModel(true);
+  };
 
   return (
     <div className="relative">
@@ -53,62 +59,78 @@ const TrainingHeroSection = () => {
                 Start Training
                 <ArrowRight className="ml-2" />
               </Button>
-              <Button size="lg" variant="outline" className="border-vitruve-purple/30 text-vitruve-purple bg-white/10 backdrop-blur-sm hover:bg-vitruve-purple/10 hover:border-vitruve-purple/50">
-                Watch Demo
+              <Button size="lg" variant="outline" className="border-vitruve-purple/30 text-vitruve-purple bg-white/10 backdrop-blur-sm hover:bg-vitruve-purple/10 hover:border-vitruve-purple/50" onClick={handleViewIn3D}>
+                View Device in 3D
               </Button>
             </div>
           </div>
 
-          <div ref={videoContainerRef} className="max-w-5xl mx-auto transition-all duration-300 ease-out shadow-2xl" style={{
-            transform: `perspective(1000px) rotateX(${rotationDegree}deg) scale(${scaleValue}) translateY(${translateY}px)`,
-            transformOrigin: 'center top'
-          }}>
-            <div className="relative rounded-[2rem] overflow-hidden bg-[#222222] border-[14px] border-[#222222]">
-              <div className="absolute inset-0 bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] opacity-30"></div>
-              
-              <div className="absolute top-0 inset-x-0 h-6 flex justify-center items-center z-10">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#333333] mx-1"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#333333] mx-2"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-[#333333] mx-1"></div>
-              </div>
-              
-              <div className="rounded-[1.5rem] overflow-hidden border border-[#333333] shadow-inner bg-[#121212]">
-                <div className="h-6 w-full bg-[#0f0f0f] flex items-center justify-between px-4">
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 rounded-full bg-vitruve-cyan mr-2"></div>
-                    <div className="text-white/60 text-xs">Vitruve Training Dashboard</div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 rounded-full bg-white/40"></div>
-                    <div className="w-2 h-2 rounded-full bg-white/40"></div>
-                    <div className="w-2 h-2 rounded-full bg-white/40"></div>
-                  </div>
-                </div>
-                
-                <div style={{
-                  position: 'relative',
-                  paddingBottom: '56.42633228840126%',
-                  height: 0
-                }}>
-                  <img 
-                    src="/lovable-uploads/035766f7-5a81-4264-915a-b05bba259675.png" 
-                    alt="Vitruve training interface" 
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                </div>
-                
-                <div className="h-8 w-full bg-[#0f0f0f] flex items-center justify-around px-4">
-                  <div className="w-6 h-1 rounded-full bg-white/20"></div>
-                  <div className="w-1 h-1 rounded-full bg-white/50"></div>
-                  <div className="w-1 h-1 rounded-full bg-white/50"></div>
-                </div>
-              </div>
-              
-              <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+          {showModel ? (
+            <div className="max-w-5xl mx-auto shadow-2xl rounded-[2rem] overflow-hidden">
+              <ModelViewer 
+                modelUrl="https://vitruve-models.s3.amazonaws.com/vitruve-encoder-3d.glb" 
+                height="400px"
+                className="rounded-[2rem]"
+              />
+              <button 
+                className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm p-2 rounded-full text-white hover:bg-white/20"
+                onClick={() => setShowModel(false)}
+              >
+                ✕
+              </button>
             </div>
-            
-            <div className="absolute -bottom-6 inset-x-8 h-6 bg-black/20 blur-xl rounded-full"></div>
-          </div>
+          ) : (
+            <div ref={videoContainerRef} className="max-w-5xl mx-auto transition-all duration-300 ease-out shadow-2xl" style={{
+              transform: `perspective(1000px) rotateX(${rotationDegree}deg) scale(${scaleValue}) translateY(${translateY}px)`,
+              transformOrigin: 'center top'
+            }}>
+              <div className="relative rounded-[2rem] overflow-hidden bg-[#222222] border-[14px] border-[#222222]">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] opacity-30"></div>
+                
+                <div className="absolute top-0 inset-x-0 h-6 flex justify-center items-center z-10">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#333333] mx-1"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#333333] mx-2"></div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#333333] mx-1"></div>
+                </div>
+                
+                <div className="rounded-[1.5rem] overflow-hidden border border-[#333333] shadow-inner bg-[#121212]">
+                  <div className="h-6 w-full bg-[#0f0f0f] flex items-center justify-between px-4">
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 rounded-full bg-vitruve-cyan mr-2"></div>
+                      <div className="text-white/60 text-xs">Vitruve Training Dashboard</div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                      <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                      <div className="w-2 h-2 rounded-full bg-white/40"></div>
+                    </div>
+                  </div>
+                  
+                  <div style={{
+                    position: 'relative',
+                    paddingBottom: '56.42633228840126%',
+                    height: 0
+                  }}>
+                    <img 
+                      src="/lovable-uploads/035766f7-5a81-4264-915a-b05bba259675.png" 
+                      alt="Vitruve training interface" 
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  <div className="h-8 w-full bg-[#0f0f0f] flex items-center justify-around px-4">
+                    <div className="w-6 h-1 rounded-full bg-white/20"></div>
+                    <div className="w-1 h-1 rounded-full bg-white/50"></div>
+                    <div className="w-1 h-1 rounded-full bg-white/50"></div>
+                  </div>
+                </div>
+                
+                <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+              </div>
+              
+              <div className="absolute -bottom-6 inset-x-8 h-6 bg-black/20 blur-xl rounded-full"></div>
+            </div>
+          )}
 
           <div className="mt-20 text-center">
             <p className="text-white/50 mb-8 text-xl">Trusted by premier coaches, embraced by athletes worldwide</p>
