@@ -45,9 +45,6 @@ const NavigationController = () => {
   
   // Pages that should use the minimal navigation - REMOVE the Vitruve product pages from this list
   const minimalNavPaths = [
-    "/academy",
-    "/support",
-    "/login",
     "/resources",
     "/blog"
   ];
@@ -129,27 +126,6 @@ function App() {
                     <Route path="/solutions/health-facilities" element={<HealthFacilities />} />
                     
                     {/* Simple pages for other navigation items */}
-                    <Route 
-                      path="/academy" 
-                      element={<ProductPage 
-                        title="Academy" 
-                        description="Learn from our extensive library of fitness training resources." 
-                      />} 
-                    />
-                    <Route 
-                      path="/support" 
-                      element={<ProductPage 
-                        title="Support" 
-                        description="Get help with your Vitruve products and services." 
-                      />} 
-                    />
-                    <Route 
-                      path="/login" 
-                      element={<ProductPage 
-                        title="Login" 
-                        description="Access your Vitruve account." 
-                      />} 
-                    />
                     <Route 
                       path="/resources" 
                       element={<ProductPage 

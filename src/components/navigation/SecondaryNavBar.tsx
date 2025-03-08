@@ -18,21 +18,21 @@ export function SecondaryNavBar({ theme, showTopBar }: SecondaryNavBarProps) {
         "fixed top-0 left-0 right-0 z-50 w-full border-b transition-all duration-200",
         theme === "dark"
           ? "border-white/5 bg-black/90 backdrop-blur-sm"
-          : "border-gray-100 bg-white/90 backdrop-blur-sm",
-        showTopBar ? "translate-y-0" : "-translate-y-full"
+          : "border-gray-100 bg-white/90 backdrop-blur-sm"
       )}
+      style={{ transform: showTopBar ? 'translateY(0)' : 'translateY(-100%)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-end h-9">
           {!isMobile && (
             <div className="flex items-center space-x-4">
-              <TopBarLink href="/academy">
+              <TopBarLink href="https://academy.vitruve.fit" external>
                 Academy
               </TopBarLink>
-              <TopBarLink href="/support">
+              <TopBarLink href="https://support.vitruve.fit" external>
                 Support
               </TopBarLink>
-              <TopBarLink href="/login">
+              <TopBarLink href="https://app.vitruve.fit" external>
                 Login
               </TopBarLink>
             </div>

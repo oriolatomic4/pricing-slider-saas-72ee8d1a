@@ -59,24 +59,30 @@ export function MobileMenu({ isOpen }: MobileMenuProps) {
           </Link>
         </div>
         
-        <Link
-          to="/academy"
+        <a
+          href="https://academy.vitruve.fit"
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Academy
-        </Link>
-        <Link
-          to="/support"
+        </a>
+        <a
+          href="https://support.vitruve.fit"
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Support
-        </Link>
-        <Link
-          to="/login"
+        </a>
+        <a
+          href="https://app.vitruve.fit"
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center px-4 py-3 rounded-md text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           Login
-        </Link>
+        </a>
         <div className="border-t border-gray-200 dark:border-gray-700 my-3"></div>
         <Link
           to="/customers"
