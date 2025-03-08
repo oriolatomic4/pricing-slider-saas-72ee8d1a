@@ -1,4 +1,3 @@
-
 import { ThemeProvider } from "./context/ThemeContext";
 import { CartProvider } from "./context/CartContext";
 import Index from "./pages/Index";
@@ -109,6 +108,7 @@ function App() {
                     <Route path="/pricing" element={<Pricing />} />
                     <Route path="/encoder-selection" element={<EncoderSelection />} />
                     <Route path="/accessories" element={<Accessories />} />
+                    {/* Keep /checkout route for direct access, but it will be skipped in normal flow */}
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/payment-success" element={<PaymentSuccess />} />
                     <Route path="/payment-failed" element={<PaymentFailed />} />
