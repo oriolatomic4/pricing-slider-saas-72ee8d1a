@@ -1,3 +1,5 @@
 
 project_id = "dtjhyfmubaqfyuumsgxv"
 [params]
+SHOPIFY_DOMAIN = "us-speed4lifts.myshopify.com"
+SHOPIFY_STOREFRONT_ACCESS_TOKEN = "df1b979dedc60278b7d56898bb2b69ee"
