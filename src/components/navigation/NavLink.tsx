@@ -29,7 +29,7 @@ export function NavLink({ href, children, dropdown, dropdownContent }: NavLinkPr
         onBlur={() => setIsOpen(false)}
       >
         <button
-          className="flex items-center gap-1 border-transparent hover:border-vitruve-purple border-b-2 text-gray-900 dark:text-white transition-colors duration-200"
+          className="flex items-center gap-1 border-transparent hover:border-vitruve-purple border-b-2 text-gray-900 dark:text-white hover:text-vitruve-purple dark:hover:text-white transition-colors duration-200"
         >
           <span>{children}</span>
           <ChevronDown className="h-4 w-4" />
@@ -47,7 +47,7 @@ export function NavLink({ href, children, dropdown, dropdownContent }: NavLinkPr
   return (
     <a
       href={href}
-      className="flex items-center border-transparent hover:border-vitruve-purple border-b-2 text-gray-900 dark:text-white transition-colors duration-200"
+      className="flex items-center border-transparent hover:border-vitruve-purple border-b-2 text-gray-900 dark:text-white hover:text-vitruve-purple dark:hover:text-white transition-colors duration-200"
     >
       <span>{children}</span>
     </a>
