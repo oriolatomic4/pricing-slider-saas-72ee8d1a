@@ -1,133 +1,22 @@
 
 import React from "react";
-import { useCart } from "@/context/CartContext";
-import { CartContent } from "@/components/cart/CartContent";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
+import OrderSummary from "@/components/checkout/OrderSummary";
+import PriceSummary from "@/components/checkout/PriceSummary";
+import { useCheckout } from "@/hooks/useCheckout";
 
 const Checkout = () => {
-  const navigate = useNavigate();
-  const { 
-    cart, 
-    selectedPlan, 
-    encoderPurchase, 
+  const {
+    cart,
+    selectedPlan,
+    encoderPurchase,
+    products,
+    isProcessing,
     getSubtotal,
-    removeFromCart,
-    setSelectedPlan,
-    setEncoderPurchase,
-    completePurchase
-  } = useCart();
-
-  // Products data
-  const [products, setProducts] = React.useState<any[]>([]);
-  const [isProcessing, setIsProcessing] = React.useState(false);
-  
-  // Fetch products data
-  React.useEffect(() => {
-    if (window._products) {
-      setProducts(window._products);
-    }
-  }, [cart]);
-
-  const handleRemoveItem = (productId: string) => {
-    removeFromCart(productId);
-  };
-
-  const handleRemovePlan = () => {
-    setSelectedPlan(null);
-  };
-
-  const handleRemoveEncoder = () => {
-    setEncoderPurchase(null);
-  };
-
-  const handlePlaceOrder = async () => {
-    try {
-      setIsProcessing(true);
-      
-      // Create line items from cart for Stripe
-      const lineItems = [];
-      
-      // Add cart items
-      for (const [productId, quantity] of Object.entries(cart)) {
-        if (quantity > 0) {
-          const product = products.find(p => p.id === productId);
-          if (product) {
-            lineItems.push({
-              priceId: productId, // Using product ID as price ID for demonstration
-              quantity: quantity,
-              name: product.name,
-              amount: product.price * 100 // Convert to cents for Stripe
-            });
-          }
-        }
-      }
-      
-      // Add plan if selected
-      if (selectedPlan) {
-        lineItems.push({
-          priceId: selectedPlan.id,
-          quantity: 1,
-          name: selectedPlan.name,
-          amount: selectedPlan.price * 100 // Convert to cents for Stripe
-        });
-      }
-      
-      // Add encoder if selected
-      if (encoderPurchase && encoderPurchase.count > 0) {
-        lineItems.push({
-          priceId: 'encoder-device',
-          quantity: encoderPurchase.count,
-          name: 'Vitruve Encoder Device',
-          amount: encoderPurchase.pricePerUnit * 100 // Convert to cents for Stripe
-        });
-      }
-      
-      // If cart is empty, show error
-      if (lineItems.length === 0) {
-        toast.error('Your cart is empty. Please add items before checkout.');
-        setIsProcessing(false);
-        return;
-      }
-      
-      console.log('Sending line items to checkout:', lineItems);
-      
-      const { data, error } = await supabase.functions.invoke('create-checkout-session', {
-        body: { lineItems }
-      });
-      
-      console.log('Response from checkout session:', data, error);
-      
-      if (error) {
-        console.error('Error creating checkout session:', error);
-        toast.error('Failed to initiate checkout. Please try again.');
-        navigate('/payment-failed');
-        return;
-      }
-      
-      // If successful, redirect to the Stripe checkout URL
-      if (data && data.url) {
-        window.location.href = data.url;
-      } else {
-        console.error('No checkout URL returned');
-        toast.error('Failed to initiate checkout. Please try again.');
-        navigate('/payment-failed');
-      }
-    } catch (error) {
-      console.error('Checkout error:', error);
-      toast.error('An unexpected error occurred. Please try again.');
-      navigate('/payment-failed');
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
-  const getCartItemCount = () => {
-    return Object.values(cart).reduce((total, quantity) => total + quantity, 0);
-  };
+    handleRemoveItem,
+    handleRemovePlan,
+    handleRemoveEncoder,
+    handlePlaceOrder
+  } = useCheckout();
 
   return (
     <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-200">
@@ -138,69 +27,23 @@ const Checkout = () => {
         </div>
 
         <div className="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow transition-colors duration-200">
-          {/* Order summary section using the CartContent component */}
-          <div className="p-6 border-b border-gray-200 dark:border-gray-800">
-            <h2 className="text-xl font-semibold mb-4 text-black dark:text-white">Order Summary</h2>
-            
-            <div className="bg-gray-50 dark:bg-gray-950 rounded-lg">
-              <CartContent 
-                selectedPlan={selectedPlan}
-                encoderPurchase={encoderPurchase}
-                cart={cart}
-                products={products}
-                onRemoveItem={handleRemoveItem}
-                onRemovePlan={handleRemovePlan}
-                onRemoveEncoder={handleRemoveEncoder}
-              />
-            </div>
-          </div>
+          {/* Order summary section */}
+          <OrderSummary 
+            selectedPlan={selectedPlan}
+            encoderPurchase={encoderPurchase}
+            cart={cart}
+            products={products}
+            onRemoveItem={handleRemoveItem}
+            onRemovePlan={handleRemovePlan}
+            onRemoveEncoder={handleRemoveEncoder}
+          />
 
           {/* Price summary section */}
-          <div className="p-6">
-            <div className="space-y-4 mb-6">
-              <div className="flex justify-between text-base">
-                <span className="font-semibold text-gray-600 dark:text-gray-300">Subtotal</span>
-                <span className="font-semibold text-black dark:text-white">€{getSubtotal().toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500 dark:text-gray-400">Shipping</span>
-                <span className="text-gray-500 dark:text-gray-400">Free</span>
-              </div>
-              <div className="flex justify-between text-base font-bold pt-4 border-t border-gray-200 dark:border-gray-800">
-                <span className="text-black dark:text-white">Total</span>
-                <span className="text-vitruve-purple">€{getSubtotal().toFixed(2)}</span>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <Button 
-                onClick={handlePlaceOrder}
-                className="w-full bg-vitruve-purple hover:bg-vitruve-purple/90 text-white font-bold py-5 text-base rounded-full"
-                disabled={getSubtotal() <= 0 || isProcessing}
-              >
-                {isProcessing ? (
-                  <>Processing...</>
-                ) : (
-                  <>
-                    <Check className="mr-2 h-5 w-5" />
-                    PLACE ORDER
-                  </>
-                )}
-              </Button>
-              
-              <Button
-                variant="outline"
-                className="w-full py-4 border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200"
-                asChild
-                disabled={isProcessing}
-              >
-                <Link to="/accessories">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Accessories
-                </Link>
-              </Button>
-            </div>
-          </div>
+          <PriceSummary
+            subtotal={getSubtotal()}
+            isProcessing={isProcessing}
+            onPlaceOrder={handlePlaceOrder}
+          />
         </div>
       </div>
     </div>
