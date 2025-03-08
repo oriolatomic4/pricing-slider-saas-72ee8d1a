@@ -47,12 +47,12 @@ const HeroSection = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-              <span className="bg-gradient-to-r from-vitruve-purple to-vitruve-cyan bg-clip-text text-transparent">Empowering </span> 
-              <span className={theme === 'dark' ? 'text-white' : 'text-gray-900'}>coaches</span>
+              <span className={theme === 'dark' ? 'text-white' : 'text-black'}>Empowering </span> 
+              <span className={theme === 'dark' ? 'text-white' : 'text-black'}>coaches</span>
               <br />
-              <span className={theme === 'dark' ? 'text-white' : 'text-gray-900'}>Elevating </span> 
-              <span className="bg-gradient-to-r from-vitruve-cyan to-vitruve-yellow bg-clip-text text-transparent">performance</span>
-              <span className={theme === 'dark' ? 'text-white' : 'text-gray-900'}>.</span>
+              <span className={theme === 'dark' ? 'text-white' : 'text-black'}>Elevating </span> 
+              <span className={theme === 'dark' ? 'text-white' : 'text-black'}>performance</span>
+              <span className={theme === 'dark' ? 'text-white' : 'text-black'}>.</span>
             </h1>
             <p className={`text-xl ${theme === 'dark' ? 'text-white/70' : 'text-gray-700'} max-w-2xl mx-auto mb-8`}>
               {HERO_PARAGRAPH_LINE1}<br />
