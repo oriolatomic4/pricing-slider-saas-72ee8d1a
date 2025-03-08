@@ -7,6 +7,10 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Hardcoded Shopify credentials
+const SHOPIFY_STORE_URL = "https://us-speed4lifts.myshopify.com";
+const SHOPIFY_ACCESS_TOKEN = "df1b979dedc60278b7d56898bb2b69ee";
+
 interface LineItem {
   priceId: string;
   quantity: number;
@@ -21,10 +25,7 @@ serve(async (req) => {
   }
 
   try {
-    // Get Shopify credentials from environment variables
-    const SHOPIFY_STORE_URL = Deno.env.get('SHOPIFY_STORE_URL');
-    const SHOPIFY_ACCESS_TOKEN = Deno.env.get('SHOPIFY_ACCESS_TOKEN');
-    
+    // Check if Shopify credentials are available
     if (!SHOPIFY_STORE_URL || !SHOPIFY_ACCESS_TOKEN) {
       console.error('Missing Shopify credentials');
       return new Response(
