@@ -1,5 +1,6 @@
+
 import React from "react";
-import { X, Plus, Minus } from "lucide-react";
+import { X, Plus, Minus, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface CartItemProps {
