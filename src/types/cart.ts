@@ -13,6 +13,7 @@ export interface Product {
 export interface EncoderPurchase {
   count: number;
   pricePerUnit: number;
+  shopifyVariantId?: string;
 }
 
 export interface CartContextType {

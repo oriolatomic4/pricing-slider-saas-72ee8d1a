@@ -83,6 +83,7 @@ export const CartContent = ({
             image="/lovable-uploads/8965823e-f42e-472b-b3de-8c3cc25c57c0.png"
             onRemove={onRemoveEncoder}
             itemId="encoder"
+            shopifyVariantId="53714682577222" // Added Encoder variant ID
           />
         </div>
       )}
@@ -106,6 +107,7 @@ export const CartContent = ({
                   image={product.image || getRandomImage()}
                   onRemove={() => onRemoveItem && onRemoveItem(productId)}
                   itemId={productId}
+                  shopifyVariantId={product.shopifyVariantId || "53937175920966"} // Fallback to accessories variant ID
                 />
               );
             })}

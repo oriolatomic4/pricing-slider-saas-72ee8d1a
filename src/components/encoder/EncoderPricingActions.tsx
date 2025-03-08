@@ -28,7 +28,8 @@ const EncoderPricingActions = ({
     if (!isCustomQuote) {
       setEncoderPurchase({
         count: Number(encoderCount),
-        pricePerUnit: basePrice
+        pricePerUnit: basePrice,
+        shopifyVariantId: "53714682577222" // Add the Encoder variant ID
       });
     }
     

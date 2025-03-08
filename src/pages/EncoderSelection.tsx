@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import EncoderImageGallery from "@/components/encoder/EncoderImageGallery";
@@ -23,10 +22,34 @@ const encoderOptions: EncoderOption[] = [
 ];
 
 const softwarePlans = [
-  { id: "free", name: "Free", price: 0 },
-  { id: "basic", name: "Basic", price: 800 },
-  { id: "elite", name: "Elite", price: 1200 },
-  { id: "professional", name: "Professional", price: 2200 },
+  { 
+    id: "free", 
+    name: "Free", 
+    price: 0,
+    shopifyProductId: "free-plan",
+    shopifyVariantId: "14937944162630" // Free variant ID
+  },
+  { 
+    id: "basic", 
+    name: "Basic", 
+    price: 800,
+    shopifyProductId: "basic-plan",
+    shopifyVariantId: "53604973904198" // Basic variant ID
+  },
+  { 
+    id: "elite", 
+    name: "Elite", 
+    price: 1200,
+    shopifyProductId: "elite-plan",
+    shopifyVariantId: "53604973936966" // Elite variant ID
+  },
+  { 
+    id: "professional", 
+    name: "Professional", 
+    price: 2200,
+    shopifyProductId: "professional-plan",
+    shopifyVariantId: "53604973969734" // Pro variant ID
+  },
 ];
 
 const EncoderSelection = () => {

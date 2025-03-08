@@ -54,8 +54,11 @@ export const useCheckout = () => {
         if (quantity > 0) {
           const product = products.find(p => p.id === productId);
           if (product) {
+            // Use the Shopify variant ID if available, otherwise use the accessory fallback
+            const variantId = product.shopifyVariantId || "53937175920966"; // Accessory fallback ID
+            
             lineItems.push({
-              variantId: product.shopifyVariantId || productId, // Use Shopify variant ID if available
+              variantId: variantId,
               quantity: quantity,
               title: product.name,
               price: product.price * 100 // Convert to cents for Shopify
@@ -67,7 +70,7 @@ export const useCheckout = () => {
       // Add plan if selected
       if (selectedPlan) {
         lineItems.push({
-          variantId: selectedPlan.shopifyVariantId || selectedPlan.id, // Use Shopify variant ID if available
+          variantId: selectedPlan.shopifyVariantId, // Use the real Shopify variant ID
           quantity: 1,
           title: selectedPlan.name,
           price: selectedPlan.price * 100 // Convert to cents for Shopify
@@ -77,7 +80,7 @@ export const useCheckout = () => {
       // Add encoder if selected
       if (encoderPurchase && encoderPurchase.count > 0) {
         lineItems.push({
-          variantId: 'encoder-device', // Replace with actual Shopify variant ID
+          variantId: '53714682577222', // Encoder variant ID
           quantity: encoderPurchase.count,
           title: 'Vitruve Encoder Device',
           price: encoderPurchase.pricePerUnit * 100 // Convert to cents for Shopify
