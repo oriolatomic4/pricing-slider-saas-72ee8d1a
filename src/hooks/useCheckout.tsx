@@ -46,7 +46,7 @@ export const useCheckout = () => {
     try {
       setIsProcessing(true);
       
-      // Create line items from cart for Stripe
+      // Create line items from cart for Shopify
       const lineItems = [];
       
       // Add cart items
@@ -55,10 +55,10 @@ export const useCheckout = () => {
           const product = products.find(p => p.id === productId);
           if (product) {
             lineItems.push({
-              priceId: productId, // Using product ID as price ID for demonstration
+              priceId: productId,
               quantity: quantity,
               name: product.name,
-              amount: product.price * 100 // Convert to cents for Stripe
+              amount: product.price * 100 // Convert to cents for Shopify
             });
           }
         }
@@ -70,7 +70,7 @@ export const useCheckout = () => {
           priceId: selectedPlan.id,
           quantity: 1,
           name: selectedPlan.name,
-          amount: selectedPlan.price * 100 // Convert to cents for Stripe
+          amount: selectedPlan.price * 100 // Convert to cents for Shopify
         });
       }
       
@@ -80,7 +80,7 @@ export const useCheckout = () => {
           priceId: 'encoder-device',
           quantity: encoderPurchase.count,
           name: 'Vitruve Encoder Device',
-          amount: encoderPurchase.pricePerUnit * 100 // Convert to cents for Stripe
+          amount: encoderPurchase.pricePerUnit * 100 // Convert to cents for Shopify
         });
       }
       
@@ -91,22 +91,23 @@ export const useCheckout = () => {
         return;
       }
       
-      console.log('Sending line items to checkout:', lineItems);
+      console.log('Sending line items to Shopify checkout:', lineItems);
       
-      const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+      // Call the Supabase function that creates a Shopify checkout
+      const { data, error } = await supabase.functions.invoke('create-shopify-checkout', {
         body: { lineItems }
       });
       
-      console.log('Response from checkout session:', data, error);
+      console.log('Response from Shopify checkout session:', data, error);
       
       if (error) {
-        console.error('Error creating checkout session:', error);
+        console.error('Error creating Shopify checkout session:', error);
         toast.error('Failed to initiate checkout. Please try again.');
         navigate('/payment-failed');
         return;
       }
       
-      // If successful, redirect to the Stripe checkout URL
+      // If successful, redirect to the Shopify checkout URL
       if (data && data.url) {
         window.location.href = data.url;
       } else {

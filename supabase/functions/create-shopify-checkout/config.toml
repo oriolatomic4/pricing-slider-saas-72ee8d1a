@@ -1,0 +1,10 @@
+
+project_id = "vitruve-checkout"
+
+[db_config]
+schemas = []
+foreign_keys = false
+
+[[db_config.shadow_tables]]
+name = "products"
+schema = "public"
