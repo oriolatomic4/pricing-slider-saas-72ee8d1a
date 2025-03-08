@@ -37,7 +37,7 @@ export const CartContent = ({
   onRemovePlan,
   onRemoveEncoder
 }: CartContentProps) => {
-  // Check if there are any products in the cart with quantity > 0
+  // Count products in the cart with quantity > 0
   const accessoryItems = Object.entries(cart).filter(([_, quantity]) => quantity > 0).length;
   
   const mainProduct = selectedPlan ? selectedPlan.name : encoderPurchase && encoderPurchase.count > 0 ? "Vitruve Encoder" : "";

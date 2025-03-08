@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { toast } from "sonner";
 import { SoftwarePlan } from "@/components/encoder/SoftwarePlanSelector";
@@ -148,26 +147,25 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getCartItemCount = () => {
-    let totalCount = 0;
-    
-    // Count accessories with quantity > 0
+    // Count only accessories with quantity > 0
     const accessoriesCount = Object.values(cart).reduce((acc, quantity) => {
       // Only count items with quantity > 0
-      return quantity > 0 ? acc + quantity : acc;
+      return quantity > 0 ? acc + 1 : acc;
     }, 0);
-    totalCount += accessoriesCount;
     
     // Count encoder (if any)
+    let encoderCount = 0;
     if (encoderPurchase && encoderPurchase.count > 0) {
-      totalCount += encoderPurchase.count;
+      encoderCount = 1; // Count as one item regardless of quantity
     }
     
     // Count plan (if any)
+    let planCount = 0;
     if (selectedPlan) {
-      totalCount += 1;
+      planCount = 1;
     }
     
-    return totalCount;
+    return accessoriesCount + encoderCount + planCount;
   };
 
   const getSubtotal = () => {
