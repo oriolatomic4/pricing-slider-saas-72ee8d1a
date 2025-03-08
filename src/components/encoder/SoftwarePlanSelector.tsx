@@ -1,4 +1,3 @@
-
 import React from "react";
 import { cn } from "@/lib/utils";
 
@@ -6,6 +5,8 @@ export interface SoftwarePlan {
   id: string;
   name: string;
   price: number;
+  shopifyProductId?: string;
+  shopifyVariantId?: string;
 }
 
 interface SoftwarePlanSelectorProps {

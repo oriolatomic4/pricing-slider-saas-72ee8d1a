@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import PricingCard from "@/components/pricing/PricingCard";
 import PlanSelector from "@/components/pricing/PlanSelector";
@@ -12,6 +11,8 @@ const teamPricingData: PricingTier[] = [
     description: "Perfect for getting started",
     price: 0,
     features: ["1 athlete", "Visualize and export data up to 30 days ago"],
+    shopifyProductId: "free-plan", // Replace with your actual Shopify product ID
+    shopifyVariantId: "free-plan-variant", // Replace with your actual Shopify variant ID
   },
   {
     id: "basic",
@@ -23,6 +24,8 @@ const teamPricingData: PricingTier[] = [
       "Visualize and export data up to 30 days ago",
       "Leaderboards",
     ],
+    shopifyProductId: "basic-plan", // Replace with your actual Shopify product ID
+    shopifyVariantId: "basic-plan-variant", // Replace with your actual Shopify variant ID
   },
   {
     id: "elite",
@@ -39,6 +42,8 @@ const teamPricingData: PricingTier[] = [
       "Automatic weight suggestion",
       "3rd party Integrations",
     ],
+    shopifyProductId: "elite-plan", // Replace with your actual Shopify product ID
+    shopifyVariantId: "elite-plan-variant", // Replace with your actual Shopify variant ID
   },
   {
     id: "professional",
@@ -51,6 +56,8 @@ const teamPricingData: PricingTier[] = [
       "Multicoach",
       "Free replacements for new version of hardware",
     ],
+    shopifyProductId: "professional-plan", // Replace with your actual Shopify product ID
+    shopifyVariantId: "professional-plan-variant", // Replace with your actual Shopify variant ID
   },
 ];
 
@@ -66,6 +73,8 @@ const athletePricingData: PricingTier[] = [
       "Data visualization for 15 days",
       "Export basic reports"
     ],
+    shopifyProductId: "athlete-free-plan", // Replace with your actual Shopify product ID
+    shopifyVariantId: "athlete-free-variant", // Replace with your actual Shopify variant ID
   },
   {
     id: "athlete-pro",
@@ -81,6 +90,8 @@ const athletePricingData: PricingTier[] = [
       "Connect with coaches",
       "Integration with fitness apps"
     ],
+    shopifyProductId: "athlete-pro-plan", // Replace with your actual Shopify product ID
+    shopifyVariantId: "athlete-pro-variant", // Replace with your actual Shopify variant ID
   },
 ];
 

@@ -55,10 +55,10 @@ export const useCheckout = () => {
           const product = products.find(p => p.id === productId);
           if (product) {
             lineItems.push({
-              priceId: productId,
+              variantId: product.shopifyVariantId || productId, // Use Shopify variant ID if available
               quantity: quantity,
-              name: product.name,
-              amount: product.price * 100 // Convert to cents for Shopify
+              title: product.name,
+              price: product.price * 100 // Convert to cents for Shopify
             });
           }
         }
@@ -67,20 +67,20 @@ export const useCheckout = () => {
       // Add plan if selected
       if (selectedPlan) {
         lineItems.push({
-          priceId: selectedPlan.id,
+          variantId: selectedPlan.shopifyVariantId || selectedPlan.id, // Use Shopify variant ID if available
           quantity: 1,
-          name: selectedPlan.name,
-          amount: selectedPlan.price * 100 // Convert to cents for Shopify
+          title: selectedPlan.name,
+          price: selectedPlan.price * 100 // Convert to cents for Shopify
         });
       }
       
       // Add encoder if selected
       if (encoderPurchase && encoderPurchase.count > 0) {
         lineItems.push({
-          priceId: 'encoder-device',
+          variantId: 'encoder-device', // Replace with actual Shopify variant ID
           quantity: encoderPurchase.count,
-          name: 'Vitruve Encoder Device',
-          amount: encoderPurchase.pricePerUnit * 100 // Convert to cents for Shopify
+          title: 'Vitruve Encoder Device',
+          price: encoderPurchase.pricePerUnit * 100 // Convert to cents for Shopify
         });
       }
       

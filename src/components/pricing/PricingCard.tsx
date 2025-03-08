@@ -18,7 +18,9 @@ const PricingCard = ({ tier }: PricingCardProps) => {
     setSelectedPlan({
       id: tier.id,
       name: tier.name,
-      price: tier.price || 0
+      price: tier.price || 0,
+      shopifyProductId: tier.shopifyProductId, // Pass the Shopify product ID
+      shopifyVariantId: tier.shopifyVariantId  // Pass the Shopify variant ID
     });
   };
   

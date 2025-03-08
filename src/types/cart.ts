@@ -1,4 +1,3 @@
-
 import { SoftwarePlan } from "@/components/encoder/SoftwarePlanSelector";
 
 export interface Product {
@@ -7,6 +6,8 @@ export interface Product {
   price: number;
   image: string;
   category: "accessory" | "software";
+  shopifyProductId?: string;
+  shopifyVariantId?: string;
 }
 
 export interface EncoderPurchase {
