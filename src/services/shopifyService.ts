@@ -10,6 +10,32 @@ const graphQLClient = new GraphQLClient(endpoint, {
   },
 });
 
+// Type definitions for GraphQL responses
+interface UserError {
+  message: string;
+  field: string[];
+}
+
+interface CartCreateResponse {
+  cartCreate: {
+    cart: {
+      id: string;
+      checkoutUrl: string;
+    };
+    userErrors: UserError[];
+  }
+}
+
+interface CartLinesAddResponse {
+  cartLinesAdd: {
+    cart: {
+      id: string;
+      checkoutUrl: string;
+    };
+    userErrors: UserError[];
+  }
+}
+
 const createCartMutation = `
   mutation cartCreate {
     cartCreate {
@@ -44,7 +70,7 @@ const cartLinesAddMutation = `
 export const createCheckoutWithMultipleItems = async (items: {variantId: string, quantity: number}[]) => {
   try {
     // First create a cart
-    const cartData = await graphQLClient.request(createCartMutation);
+    const cartData = await graphQLClient.request<CartCreateResponse>(createCartMutation);
 
     if (cartData.cartCreate.userErrors && cartData.cartCreate.userErrors.length > 0) {
       throw new Error(cartData.cartCreate.userErrors[0].message);
@@ -61,7 +87,7 @@ export const createCheckoutWithMultipleItems = async (items: {variantId: string,
       })),
     };
 
-    const addToCartData = await graphQLClient.request(
+    const addToCartData = await graphQLClient.request<CartLinesAddResponse>(
       cartLinesAddMutation,
       variables
     );
