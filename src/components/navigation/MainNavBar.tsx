@@ -46,6 +46,46 @@ export function MainNavBar({ theme, showTopBar, isPurchasePage }: MainNavBarProp
     </div>
   );
 
+  // Solutions dropdown content
+  const solutionsDropdownContent = (
+    <div className="py-2">
+      <DropdownItem 
+        href="/solutions/high-schools" 
+        title="High Schools" 
+        description="Solutions for high school athletics" 
+        icon={<img src="/lovable-uploads/4b5878f7-4f70-4603-b6ca-c40129e46c8b.png" alt="High Schools" className="w-6 h-6" />}
+      />
+      <div className="border-t border-gray-200 dark:border-gray-800 my-2"></div>
+      <DropdownItem 
+        href="/solutions/colleges" 
+        title="Colleges" 
+        description="Solutions for college athletics" 
+        icon={<img src="/lovable-uploads/cb4f7b64-baba-4b66-90f0-01a8c6a869c5.png" alt="Colleges" className="w-6 h-6" />}
+      />
+      <div className="border-t border-gray-200 dark:border-gray-800 my-2"></div>
+      <DropdownItem 
+        href="/solutions/private-facilities" 
+        title="Private Facilities" 
+        description="Solutions for private training centers" 
+        icon={<img src="/lovable-uploads/f05857c3-fe50-4cb4-ba16-dbc769e65b0a.png" alt="Private Facilities" className="w-6 h-6" />}
+      />
+      <div className="border-t border-gray-200 dark:border-gray-800 my-2"></div>
+      <DropdownItem 
+        href="/solutions/professional-teams" 
+        title="Professional Teams" 
+        description="Solutions for professional sports teams" 
+        icon={<img src="/lovable-uploads/4b5878f7-4f70-4603-b6ca-c40129e46c8b.png" alt="Pro Teams" className="w-6 h-6" />}
+      />
+      <div className="border-t border-gray-200 dark:border-gray-800 my-2"></div>
+      <DropdownItem 
+        href="/solutions/health-facilities" 
+        title="Health Facilities" 
+        description="Solutions for clinical settings" 
+        icon={<img src="/lovable-uploads/cb4f7b64-baba-4b66-90f0-01a8c6a869c5.png" alt="Health" className="w-6 h-6" />}
+      />
+    </div>
+  );
+
   return (
     <>
       <nav
@@ -81,8 +121,11 @@ export function MainNavBar({ theme, showTopBar, isPurchasePage }: MainNavBarProp
                   >
                     Product
                   </NavLink>
-                  <NavLink href="/customers">
-                    Customers
+                  <NavLink 
+                    dropdown
+                    dropdownContent={solutionsDropdownContent}
+                  >
+                    Solutions
                   </NavLink>
                   <NavLink href="/resources">
                     Resources
