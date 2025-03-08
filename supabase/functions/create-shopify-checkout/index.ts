@@ -24,13 +24,17 @@ serve(async (req) => {
       );
     }
 
-    // Access Shopify configuration from Deno.env or from params
-    const SHOPIFY_DOMAIN = Deno.env.get("SHOPIFY_DOMAIN") || Deno.env.get("SUPABASE_PARAMS_SHOPIFY_DOMAIN");
+    // Access Shopify configuration from environment variables with fallbacks
+    const SHOPIFY_DOMAIN = Deno.env.get("SHOPIFY_DOMAIN") || 
+                           Deno.env.get("SUPABASE_PARAMS_SHOPIFY_DOMAIN") || 
+                           "us-speed4lifts.myshopify.com";
+                           
     const SHOPIFY_STOREFRONT_ACCESS_TOKEN = Deno.env.get("SHOPIFY_STOREFRONT_ACCESS_TOKEN") || 
-                                           Deno.env.get("SUPABASE_PARAMS_SHOPIFY_STOREFRONT_ACCESS_TOKEN");
+                                           Deno.env.get("SUPABASE_PARAMS_SHOPIFY_STOREFRONT_ACCESS_TOKEN") || 
+                                           "df1b979dedc60278b7d56898bb2b69ee";
     
-    console.log('Shopify Domain:', SHOPIFY_DOMAIN);
-    console.log('Access Token Available:', !!SHOPIFY_STOREFRONT_ACCESS_TOKEN);
+    console.log('Using Shopify Domain:', SHOPIFY_DOMAIN);
+    console.log('Access Token Available:', SHOPIFY_STOREFRONT_ACCESS_TOKEN ? 'Yes' : 'No');
     
     if (!SHOPIFY_DOMAIN || !SHOPIFY_STOREFRONT_ACCESS_TOKEN) {
       return new Response(
