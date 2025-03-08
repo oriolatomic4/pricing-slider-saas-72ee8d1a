@@ -1,6 +1,6 @@
 
 import React from "react";
-import { University, Target, Brain } from "lucide-react";
+import { University, Target, Brain, Users } from "lucide-react";
 import HeroSolution from "@/components/sections/solutions/HeroSolution";
 import FeaturesSolution from "@/components/sections/solutions/FeaturesSolution";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";

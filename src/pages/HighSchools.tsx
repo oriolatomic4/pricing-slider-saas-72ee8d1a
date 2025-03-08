@@ -1,6 +1,6 @@
 
 import React from "react";
-import { School, Award, Lightbulb } from "lucide-react";
+import { School, Award, Lightbulb, GraduationCap } from "lucide-react";
 import HeroSolution from "@/components/sections/solutions/HeroSolution";
 import FeaturesSolution from "@/components/sections/solutions/FeaturesSolution";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
