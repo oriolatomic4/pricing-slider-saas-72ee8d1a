@@ -53,12 +53,9 @@ export const useCheckout = () => {
       for (const [productId, quantity] of Object.entries(cart)) {
         if (quantity > 0) {
           const product = products.find(p => p.id === productId);
-          if (product) {
-            // Use the Shopify variant ID if available, otherwise use the accessory fallback
-            const variantId = product.shopifyVariantId || "53937175920966"; // Accessory fallback ID
-            
+          if (product && product.shopifyVariantId) {
             lineItems.push({
-              variantId: variantId,
+              variantId: product.shopifyVariantId,
               quantity: quantity
             });
           }
@@ -66,9 +63,9 @@ export const useCheckout = () => {
       }
       
       // Add plan if selected
-      if (selectedPlan) {
+      if (selectedPlan && selectedPlan.shopifyVariantId) {
         lineItems.push({
-          variantId: selectedPlan.shopifyVariantId, // Use the real Shopify variant ID
+          variantId: selectedPlan.shopifyVariantId,
           quantity: 1
         });
       }

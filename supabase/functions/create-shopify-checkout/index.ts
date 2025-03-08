@@ -52,10 +52,19 @@ serve(async (req) => {
     const storefrontApiUrl = `https://${SHOPIFY_DOMAIN}/api/2023-07/graphql.json`;
 
     // Prepare line items for the GraphQL mutation
-    const graphQLLineItems = lineItems.map(item => ({
-      variantId: item.variantId,
-      quantity: item.quantity
-    }));
+    // IMPORTANT: Shopify GraphQL API requires variant IDs to be base64 encoded with a prefix
+    const graphQLLineItems = lineItems.map(item => {
+      // Base64 encode the variant ID with the required prefix if it's not already in the right format
+      let variantId = item.variantId;
+      if (!variantId.startsWith('gid://')) {
+        variantId = `gid://shopify/ProductVariant/${item.variantId}`;
+      }
+      
+      return {
+        variantId: btoa(variantId),
+        quantity: item.quantity
+      };
+    });
 
     // Create checkout using Shopify Storefront API
     const mutation = `
