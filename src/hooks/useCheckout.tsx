@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
 import { Product } from "@/context/CartContext";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { createCheckoutWithMultipleItems } from "@/services/shopifyService";
 
 export const useCheckout = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ export const useCheckout = () => {
     try {
       setIsProcessing(true);
       
-      // Create line items from cart for Shopify
+      // Create line items array for Shopify cart
       const lineItems = [];
       
       // Add cart items
@@ -54,8 +54,13 @@ export const useCheckout = () => {
         if (quantity > 0) {
           const product = products.find(p => p.id === productId);
           if (product && product.shopifyVariantId) {
+            // Make sure the variant ID is in the correct format (gid://shopify/ProductVariant/ID format)
+            const formattedVariantId = product.shopifyVariantId.includes('gid://') 
+              ? product.shopifyVariantId 
+              : `gid://shopify/ProductVariant/${product.shopifyVariantId}`;
+              
             lineItems.push({
-              variantId: product.shopifyVariantId,
+              variantId: formattedVariantId,
               quantity: quantity
             });
           }
@@ -64,16 +69,25 @@ export const useCheckout = () => {
       
       // Add plan if selected
       if (selectedPlan && selectedPlan.shopifyVariantId) {
+        const formattedVariantId = selectedPlan.shopifyVariantId.includes('gid://') 
+          ? selectedPlan.shopifyVariantId 
+          : `gid://shopify/ProductVariant/${selectedPlan.shopifyVariantId}`;
+          
         lineItems.push({
-          variantId: selectedPlan.shopifyVariantId,
+          variantId: formattedVariantId,
           quantity: 1
         });
       }
       
       // Add encoder if selected
       if (encoderPurchase && encoderPurchase.count > 0) {
+        const encoderVariantId = encoderPurchase.shopifyVariantId || '53714682577222';
+        const formattedVariantId = encoderVariantId.includes('gid://') 
+          ? encoderVariantId 
+          : `gid://shopify/ProductVariant/${encoderVariantId}`;
+          
         lineItems.push({
-          variantId: '53714682577222', // Encoder variant ID
+          variantId: formattedVariantId,
           quantity: encoderPurchase.count
         });
       }
@@ -85,32 +99,23 @@ export const useCheckout = () => {
         return;
       }
       
-      console.log('Sending line items to Shopify checkout:', lineItems);
+      console.log('Creating checkout with line items:', lineItems);
       
-      // Call the Supabase function that creates a Shopify checkout
-      const { data, error } = await supabase.functions.invoke('create-shopify-checkout', {
-        body: { lineItems }
-      });
+      // Use the new service to create a checkout
+      const checkoutUrl = await createCheckoutWithMultipleItems(lineItems);
       
-      console.log('Response from Shopify checkout session:', data, error);
-      
-      if (error) {
-        console.error('Error creating Shopify checkout session:', error);
+      if (!checkoutUrl) {
+        console.error('No checkout URL returned');
         toast.error('Failed to initiate checkout. Please try again.');
         navigate('/payment-failed');
         return;
       }
       
       // If successful, redirect to the Shopify checkout URL
-      if (data && data.url) {
-        // Mark purchase as complete in our system before redirecting
-        completePurchase();
-        window.location.href = data.url;
-      } else {
-        console.error('No checkout URL returned');
-        toast.error('Failed to initiate checkout. Please try again.');
-        navigate('/payment-failed');
-      }
+      console.log('Redirecting to Shopify checkout URL:', checkoutUrl);
+      completePurchase();
+      window.location.href = checkoutUrl;
+      
     } catch (error) {
       console.error('Checkout error:', error);
       toast.error('An unexpected error occurred. Please try again.');
