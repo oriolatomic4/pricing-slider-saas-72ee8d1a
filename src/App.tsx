@@ -24,6 +24,11 @@ import BannerSection from "./components/sections/BannerSection";
 import VitruveBuilder from "./pages/VitruveBuilder";
 import VitruveTraining from "./pages/VitruveTraining";
 import VitruveLabs from "./pages/VitruveLabs";
+import HighSchools from "./pages/HighSchools";
+import Colleges from "./pages/Colleges";
+import PrivateFacilities from "./pages/PrivateFacilities";
+import ProfessionalTeams from "./pages/ProfessionalTeams";
+import HealthFacilities from "./pages/HealthFacilities";
 
 // Create a client for React Query
 const queryClient = new QueryClient();
@@ -43,7 +48,6 @@ const NavigationController = () => {
     "/academy",
     "/support",
     "/login",
-    "/customers",
     "/resources",
     "/blog"
   ];
@@ -112,10 +116,17 @@ function App() {
                     <Route path="/payment-success" element={<PaymentSuccess />} />
                     <Route path="/payment-failed" element={<PaymentFailed />} />
                     
-                    {/* Updated product pages with dedicated components */}
+                    {/* Product pages */}
                     <Route path="/vitruve-builder" element={<VitruveBuilder />} />
                     <Route path="/vitruve-training" element={<VitruveTraining />} />
                     <Route path="/vitruve-labs" element={<VitruveLabs />} />
+                    
+                    {/* Solution pages */}
+                    <Route path="/solutions/high-schools" element={<HighSchools />} />
+                    <Route path="/solutions/colleges" element={<Colleges />} />
+                    <Route path="/solutions/private-facilities" element={<PrivateFacilities />} />
+                    <Route path="/solutions/professional-teams" element={<ProfessionalTeams />} />
+                    <Route path="/solutions/health-facilities" element={<HealthFacilities />} />
                     
                     {/* Simple pages for other navigation items */}
                     <Route 
@@ -137,13 +148,6 @@ function App() {
                       element={<ProductPage 
                         title="Login" 
                         description="Access your Vitruve account." 
-                      />} 
-                    />
-                    <Route 
-                      path="/customers" 
-                      element={<ProductPage 
-                        title="Customers" 
-                        description="Discover how our customers are using Vitruve products." 
                       />} 
                     />
                     <Route 
